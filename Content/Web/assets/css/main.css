@@ -1,0 +1,144 @@
+
+/*
+* LOADER CLASS CSS
+*/
+.loader{
+    visibility: hidden;
+    display: flex;	
+    justify-content: center;
+    align-items: center;
+}
+
+.loader > *{
+    z-index: 100;
+}
+
+.loader_overlay{
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: aliceblue;
+    opacity: 0.5;
+}
+
+.sidebar-open #sidebar-overlay {
+    display: none !important;
+}
+.loader_img{
+    width: 100%;
+    max-height: 150px;
+    position: fixed;
+    top: 35%;
+}
+
+.loader_absolute > .loader_overlay{
+    position: absolute !important;
+}
+
+.alert-response{
+    display: none;
+}
+
+.main-sidebar, .main-header {
+    z-index: 50;
+}
+
+.card-primary:not(.card-outline)>.card-header {
+    background-color: #282d31;
+}
+
+.btn-primary {
+    background-color: #ce153f;
+    border-color: #ce153f;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #282d31;
+    border-color: #282d31;
+}
+
+span.badge.badge-danger, .fa-download, .fa-magnifying-glass, .mfp-close{
+    cursor: pointer;
+}
+
+table#claimsList, table#app_user_list{
+    font-size: 12px;
+}
+
+table i.fa {
+    padding-right: 10px;
+    font-size: 15px;
+}
+
+.redClass{
+    background-color: red;
+    color: #fff;
+}
+
+.redClass a, .redClass i {
+    color: #fff;
+}
+
+.redClass a:hover, .redClass i{
+    color: #000;
+}
+
+.redClass td{
+    border: 1px solid #d30d1ff0;
+}
+
+tr td{
+    border: 1px solid #dee2e6;
+}
+
+.search table{
+    font-size: 12px;
+}
+
+.app_user_info th{
+    text-align: center;
+}
+
+.app_user_info td:first-child{
+    font-weight: 800;
+}
+
+.bd-callout {
+    padding: 0.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.25rem;
+    border: 1px solid #eee;
+    border-left-width: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.bd-callout-warning {
+    border-left-color: #f0ad4e;
+    padding: 1.25rem;
+}
+
+.bd-callout-secondary{
+    border-left-color: #545b62;
+}
+
+.bd-callout p:last-child {
+    margin-bottom: 0;
+}
+
+.main-footer{
+    font-size: 10px !important;
+}
+
+.card-body{
+    padding: 5px 10px 5px 15px !important;
+}
+
+
+.btn-sm {
+    font-size: 12px;
+    padding: 4px 5px;
+}
