@@ -1,0 +1,334 @@
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\BHMS_Portal.dll.config
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\BHMS_Portal.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\BHMS_Portal.pdb
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\csc.exe
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\csc.exe.config
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\csc.rsp
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\csi.exe
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\csi.exe.config
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\csi.rsp
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.AppContext.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Console.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.Compression.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Net.Http.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Net.Sockets.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.ValueTuple.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.XPath.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\vbc.exe
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\vbc.exe.config
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\vbc.rsp
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\VBCSCompiler.exe
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Antlr3.Runtime.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Azure.Core.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Azure.Identity.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Dapper.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.Memory.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.TimeProvider.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.Core.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Validators.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Abstractions.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Authentication.Azure.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Http.HttpClientLibrary.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Form.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Json.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Multipart.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Text.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Newtonsoft.Json.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Std.UriTemplate.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Buffers.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.ClientModel.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Configuration.ConfigurationManager.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Data.SqlClient.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.IO.FileSystem.AccessControl.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Memory.Data.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Memory.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Net.Http.WinHttpHandler.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Numerics.Vectors.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Security.AccessControl.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Security.Cryptography.ProtectedData.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Security.Principal.Windows.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Text.Encodings.Web.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Text.Json.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.ValueTuple.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Helpers.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Mvc.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Optimization.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Razor.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Deployment.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Razor.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\WebGrease.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Azure.Core.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Azure.Identity.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Dapper.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.Memory.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.TimeProvider.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.Core.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.Extensions.Msal.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Abstractions.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Validators.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Abstractions.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Authentication.Azure.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Http.HttpClientLibrary.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Form.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Json.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Multipart.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Text.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Buffers.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.ClientModel.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Configuration.ConfigurationManager.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Data.SqlClient.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.IO.FileSystem.AccessControl.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Memory.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Memory.Data.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Net.Http.WinHttpHandler.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Numerics.Vectors.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Security.AccessControl.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Security.Principal.Windows.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Text.Encodings.Web.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Text.Json.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.ValueTuple.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Helpers.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Mvc.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Optimization.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.Razor.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Deployment.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Razor.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Newtonsoft.Json.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Antlr3.Runtime.pdb
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.csproj.AssemblyReference.cache
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.csproj.CoreCompileInputs.cache
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Por.CACA70B6.Up2Date
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.dll
+C:\Users\baamir\Desktop\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.pdb
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\BHMS_Portal.dll.config
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\BHMS_Portal.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\BHMS_Portal.pdb
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\csc.exe
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\csc.exe.config
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\csc.rsp
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\csi.exe
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\csi.exe.config
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\csi.rsp
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.AppContext.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Console.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.Compression.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Net.Http.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Net.Sockets.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.ValueTuple.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.XPath.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\vbc.exe
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\vbc.exe.config
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\vbc.rsp
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\VBCSCompiler.exe
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Antlr3.Runtime.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Azure.Core.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Azure.Identity.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Dapper.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.Memory.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.TimeProvider.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.Core.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Tokens.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Validators.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Abstractions.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Authentication.Azure.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Http.HttpClientLibrary.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Form.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Json.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Multipart.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Text.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Newtonsoft.Json.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Std.UriTemplate.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Buffers.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.ClientModel.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Configuration.ConfigurationManager.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Data.SqlClient.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Diagnostics.DiagnosticSource.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.IO.FileSystem.AccessControl.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Memory.Data.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Memory.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Net.Http.WinHttpHandler.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Numerics.Vectors.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Security.AccessControl.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Security.Cryptography.ProtectedData.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Security.Principal.Windows.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Text.Encodings.Web.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Text.Json.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.ValueTuple.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Helpers.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Mvc.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Optimization.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Razor.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Deployment.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Razor.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\WebGrease.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Azure.Core.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Azure.Identity.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Dapper.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.Memory.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Bcl.TimeProvider.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Graph.Core.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Identity.Client.Extensions.Msal.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Abstractions.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Protocols.OpenIdConnect.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Tokens.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.IdentityModel.Validators.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Abstractions.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Authentication.Azure.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Http.HttpClientLibrary.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Form.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Json.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Multipart.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.Kiota.Serialization.Text.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Buffers.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.ClientModel.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Configuration.ConfigurationManager.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Data.SqlClient.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.IO.FileSystem.AccessControl.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Memory.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Memory.Data.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Net.Http.WinHttpHandler.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Numerics.Vectors.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Security.AccessControl.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Security.Principal.Windows.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Text.Encodings.Web.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Text.Json.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.ValueTuple.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Helpers.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Mvc.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Optimization.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.Razor.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Deployment.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\System.Web.WebPages.Razor.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Newtonsoft.Json.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Antlr3.Runtime.pdb
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.csproj.AssemblyReference.cache
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.csproj.CoreCompileInputs.cache
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Por.CACA70B6.Up2Date
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.dll
+C:\Users\baamir\Desktop\SHAREPOINT 2025\BHMS_Portal\BHMS_Portal\obj\Debug\BHMS_Portal.pdb
