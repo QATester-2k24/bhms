@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="callProcedure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="instanceName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="spName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="param" type="tns:ArrayOfGetRequestList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGetRequestList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="getRequestList" nillable="true" type="tns:getRequestList" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="getRequestList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="value" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="direction" type="tns:ParameterDirection" />
+          <s:element minOccurs="1" maxOccurs="1" name="p_type" type="tns:OracleDbType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ParameterDirection">
+        <s:restriction base="s:string">
+          <s:enumeration value="Input" />
+          <s:enumeration value="Output" />
+          <s:enumeration value="InputOutput" />
+          <s:enumeration value="ReturnValue" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="OracleDbType">
+        <s:restriction base="s:string">
+          <s:enumeration value="BFile" />
+          <s:enumeration value="Blob" />
+          <s:enumeration value="Byte" />
+          <s:enumeration value="Char" />
+          <s:enumeration value="Clob" />
+          <s:enumeration value="Date" />
+          <s:enumeration value="Decimal" />
+          <s:enumeration value="Double" />
+          <s:enumeration value="Long" />
+          <s:enumeration value="LongRaw" />
+          <s:enumeration value="Int16" />
+          <s:enumeration value="Int32" />
+          <s:enumeration value="Int64" />
+          <s:enumeration value="IntervalDS" />
+          <s:enumeration value="IntervalYM" />
+          <s:enumeration value="NClob" />
+          <s:enumeration value="NChar" />
+          <s:enumeration value="NVarchar2" />
+          <s:enumeration value="Raw" />
+          <s:enumeration value="RefCursor" />
+          <s:enumeration value="Single" />
+          <s:enumeration value="TimeStamp" />
+          <s:enumeration value="TimeStampLTZ" />
+          <s:enumeration value="TimeStampTZ" />
+          <s:enumeration value="Varchar2" />
+          <s:enumeration value="XmlType" />
+          <s:enumeration value="BinaryDouble" />
+          <s:enumeration value="BinaryFloat" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="callProcedureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="callProcedureResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="callProcedureSoapIn">
+    <wsdl:part name="parameters" element="tns:callProcedure" />
+  </wsdl:message>
+  <wsdl:message name="callProcedureSoapOut">
+    <wsdl:part name="parameters" element="tns:callProcedureResponse" />
+  </wsdl:message>
+  <wsdl:portType name="getDataSoapSoap">
+    <wsdl:operation name="callProcedure">
+      <wsdl:input message="tns:callProcedureSoapIn" />
+      <wsdl:output message="tns:callProcedureSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="getDataSoapSoap" type="tns:getDataSoapSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="callProcedure">
+      <soap:operation soapAction="http://tempuri.org/callProcedure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="getDataSoapSoap12" type="tns:getDataSoapSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="callProcedure">
+      <soap12:operation soapAction="http://tempuri.org/callProcedure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="getDataSoap">
+    <wsdl:port name="getDataSoapSoap" binding="tns:getDataSoapSoap">
+      <soap:address location="http://192.168.6.6:9191/api/getDataSoap.asmx" />
+    </wsdl:port>
+    <wsdl:port name="getDataSoapSoap12" binding="tns:getDataSoapSoap12">
+      <soap12:address location="http://192.168.6.6:9191/api/getDataSoap.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
