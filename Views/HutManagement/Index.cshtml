@@ -1,0 +1,228 @@
+﻿@using System.Globalization
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    @model IEnumerable<BHMS_Portal.Models.Hut>
+}
+
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm rounded-4">
+        <!-- Card Header -->
+        <div class="card-header bg-brown text-black d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Hut Management</h4>
+          
+        </div>
+
+
+        <!-- Card Body with Table -->
+        <div class="card-body p-0">
+
+            <!-- Add New Hut button inside card body -->
+            <div class="mb-3">
+                <button id="btnAddHut" class="btn btn-secondary">Add New Hut</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mb-0" id="hutsTable" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Hut ID</th>
+                            <th>Hut Name</th>
+                            <th>Type</th>
+                            <th>Cost</th>
+                            <th>Active</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var hut in Model)
+                        {
+                            <tr data-id="@hut.HutId">
+                                <td>@hut.HutId</td>
+                                <td>@hut.HutName</td>
+                                <td>@hut.HutType</td>
+                                <td>@hut.CostOfHut.ToString("C", CultureInfo.CreateSpecificCulture("en-PK"))</td>
+                                <td>@(hut.IsActive ? "Yes" : "No")</td>
+                                <td>
+                                    <button class="btn btn-success btn-sm edit-hut" style="border-color: #28a745;">Edit</button>
+                                    <button class="btn btn-danger btn-sm delete-hut ml-2">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Card Footer with DataTables info and pagination -->
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div id="hutsTable_info_wrap"></div>
+            <div id="hutsTable_paginate_wrap"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal for Add/Edit Hut -->
+<div class="modal fade" id="hutModal" tabindex="-1" role="dialog" aria-labelledby="hutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="hutForm">
+            <div class="modal-content">
+                <div class="modal-header bg-brown text-white">
+                    <h5 class="modal-title" id="hutModalLabel">Add/Edit Hut</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="HutId" name="HutId" />
+                    <div class="form-group">
+                        <label for="HutName">Hut Name</label>
+                        <input type="text" class="form-control" id="HutName" name="HutName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="HutType">Hut Type</label>
+                        <select class="form-control" id="HutType" name="HutType" required>
+                            <option value="Staff">Staff</option>
+                            <option value="Executive">Executive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Cost">Cost</label>
+                        <input type="number" class="form-control" id="CostOfHut" name="CostOfHut" min="0" step="0.01" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="IsActive">Active</label>
+                        <select class="form-control" id="IsActive" name="IsActive" required>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-brown">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section styles{
+    <style>
+
+        #hutsTable_paginate_wrap {
+            margin-left: auto;
+        }
+
+    </style>
+}
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $('#hutsTable').DataTable({
+                responsive: true,
+                paging: true,
+                searching: true,
+                ordering: true,
+                order: [[0, 'asc']],
+                columnDefs: [
+                    { orderable: false, targets: 5 }
+                ],
+                dom: 'lfrtip', // length, filter (search), table, info, pagination
+                language: {
+                    paginate: {
+                        previous: "Previous",
+                        next: "Next"
+                    },
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries"
+                }
+            });
+
+            // Move DataTables info and pagination to card footer after each draw
+            table.on('draw', function () {
+                $('#hutsTable_info').appendTo('#hutsTable_info_wrap');
+                $('#hutsTable_paginate').appendTo('#hutsTable_paginate_wrap');
+            });
+            // Initial move after first draw
+            $('#hutsTable_info').appendTo('#hutsTable_info_wrap');
+            $('#hutsTable_paginate').appendTo('#hutsTable_paginate_wrap');
+
+
+
+            // Delegated event for Edit buttons
+            $('#hutsTable tbody').on('click', '.edit-hut', function () {
+                var row = $(this).closest('tr');
+                $('#HutId').val(row.data('id'));
+                $('#HutName').val(row.find('td:eq(1)').text());
+                $('#HutType').val(row.find('td:eq(2)').text());
+                var costText = row.find('td:eq(3)').text().replace(/[^0-9.-]+/g, "");
+                $('#CostOfHut').val(costText);
+                var activeText = row.find('td:eq(4)').text().trim() === "Yes" ? "true" : "false";
+                $('#IsActive').val(activeText);
+                $('#hutModal').modal('show');
+            });
+
+            // Delegated event for Delete buttons
+            $('#hutsTable tbody').on('click', '.delete-hut', function () {
+                var row = $(this).closest('tr');
+                var hutId = row.data('id');
+                var hutName = row.find('td:eq(1)').text();
+                Swal.fire({
+                    title: 'Delete Hut',
+                    text: 'Are you sure you want to delete "' + hutName + '"?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Delete',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post('@Url.Action("DeleteHut", "HutManagement")', { hutId: hutId }, function (res) {
+                            if (res.success) {
+                                toastr.success('Hut deleted successfully.');
+                                location.reload();
+                            } else {
+                                toastr.error(res.message || 'Failed to delete hut.');
+                            }
+                        }).fail(function () {
+                            toastr.error('Error occurred while deleting hut.');
+                        });
+                    }
+                });
+            });
+
+            // Static event for Add New Hut button
+            $('#btnAddHut').click(function () {
+                $('#hutForm')[0].reset();
+                $('#HutId').val(0);
+                $('#IsActive').val("true");
+                $('#hutModal').modal('show');
+            });
+
+            // Form submission handler
+            $('#hutForm').submit(function (e) {
+                e.preventDefault();
+                var data = {
+                    HutId: $('#HutId').val(),
+                    HutName: $('#HutName').val(),
+                    HutType: $('#HutType').val(),
+                    CostOfHut: parseFloat($('#CostOfHut').val()),
+                    IsActive: $('#IsActive').val() === "true"
+                };
+                $.post('@Url.Action("SaveHut", "HutManagement")', data, function (res) {
+                    if (res.success) {
+                        toastr.success('Hut saved successfully.');
+                        location.reload();
+                    } else {
+                        toastr.error(res.message || 'Failed to save hut.');
+                    }
+                }).fail(function () {
+                    toastr.error('Error occurred while saving hut.');
+                });
+            });
+        });
+    </script>
+}

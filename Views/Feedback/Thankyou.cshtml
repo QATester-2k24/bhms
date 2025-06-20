@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-4 text-center" style="max-width: 600px; margin: auto; background: white;">
+        <div class="card-body py-5">
+            <i class="fas fa-check-circle fa-5x text-gold mb-3"></i>
+            <h1 class="mb-3" style="color: #ba0c2f;">Thank You!</h1>
+            <p class="lead mb-4" style="color: black;">
+                Your feedback has been submitted successfully.<br />
+                We appreciate your time and effort to help us improve.
+            </p>
+            <a href="@Url.Action("Index", "BHMS")" class="btn btn-brown btn-lg text-white fw-bold" style="border-radius: .375rem;">
+                Return to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <style>
+        .btn-brown {
+            background-color: #ba0c2f !important;
+        }
+        .btn-brown:hover {
+            background-color: floralwhite !important;
+        }
+        .text-gold {
+            color: green !important;
+        }
+    </style>
+}

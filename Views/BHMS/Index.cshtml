@@ -1,0 +1,1999 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    @model List<BHMS_Portal.Models.Booking>
+    var session = (BHMS_Portal.Models.SessionModel)Session["BHMS_PortalSession"];
+    ViewBag.CurrentUserId = session.UserId;
+
+    string userType = session.UserType;
+
+
+    // Use dynamic hut data from ViewBag
+    int selectedHutId = ViewBag.SelectedHutId ?? 0;
+
+    int hutId = selectedHutId;
+
+    int currentUserId = session.UserId;
+    bool isAdmin = session != null && session.IsAdmin;
+    bool showPending = ViewBag.ShowPendingApprovals ?? false;
+    bool showHoDPending = ViewBag.ShowHoDPendingApprovals ?? false;
+    string fullName = ViewBag.FullName ?? "";
+
+
+    // Hut name for display
+    string hutName = ViewBag.HutName ?? "";
+
+    string allowedHut = hutName; //Using dynamic hut name
+
+}
+
+<!-- Start of main container -->
+<div class="container-fluid" style="margin:0; padding:0;">
+    <!-- Full width, no curve, no shadows -->
+    <!--<div style="
+        width:100%;
+        background-color: brown;
+        padding: 20px;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;">
+        <h2 style="
+            margin: 0;
+            color: #ffffff;
+            text-align: center;
+            font-size: 24px;">
+            Jubilee Booking Hut Management System
+        </h2>
+    </div>-->
+    <!-- User greeting styled -->
+    <!--<div style="background-color: brown; padding: 10px; border-radius: 4px; margin-bottom: 10px;">
+        <h5 class="mb-0" style="color: #ffffff; margin: 0; text-align: center;">Welcome, @session.FullName!</h5>
+    </div>-->
+    @* Admin Hut Selection Buttons *@
+    @*@if (isAdmin && !showPending && !showHoDPending)
+        {
+            <h5 style="background-color: brown; color: white; padding: 8px 15px; border-radius: 6px; font-weight: 600; margin-bottom: 15px; text-align: center;">
+                You are logged in as Admin. Select hut to manage:
+            </h5>
+            <div class="mb-3 text-center">
+
+                <a href="@Url.Action("Index", "BHMS", new { hutId = ViewBag.StaffHutId })"
+                   class="btn btn-primary mx-2 @(selectedHutId == ViewBag.StaffHutId ? "active" : "")">@ViewBag.StaffHutName</a>
+                <a href="@Url.Action("Index", "BHMS", new { hutId = ViewBag.ExecutiveHutId })"
+                   class="btn btn-primary mx-2 @(selectedHutId == ViewBag.ExecutiveHutId ? "active" : "")">@ViewBag.ExecutiveHutName</a>
+
+            </div>
+        }*@
+
+
+    @* Admin Pending Approvals Table *@
+    @if (showPending)
+    {
+        <div class="card shadow-sm rounded-4">
+            <!-- Card Header -->
+            <div class="card-header bg-brown text-black d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Pending Approvals As Admin</h4>
+            </div>
+
+            <!-- Card Body with Table -->
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0" id="adminPendingBookingsTable">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>BookingDate</th>
+                                <th>UserName</th>
+                                <th>DecibelID</th>
+                                <th>HutName</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPendingBookingsList"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Card Footer with Pagination/Info -->
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <div id="adminPendingBookingsTable_info" class="dataTables_info"></div>
+                <div id="adminPendingBookingsTable_paginate" class="dataTables_paginate paging_simple_numbers"></div>
+            </div>
+        </div>
+    }
+
+
+
+    @* HoD Pending Approvals Table (no calendar here) *@
+    else if (showHoDPending)
+    {
+        <div class="card shadow-sm rounded-4">
+            <div class="card-header bg-brown text-white d-flex align-items-center">
+                <h4 class="mb-0">Pending Approvals As Head of Department</h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped mb-0" id="hodPendingBookingsTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Booking Date</th>
+                                <th>Decibel ID</th>
+                                <th>User Name</th>
+                                <th>Nominee</th>
+                                <th>Hut</th>
+                                <th>Cost</th>
+                                <th>HOD Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hodPendingBookingsList"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+                <div id="hodPendingBookingsTable_info_wrap"></div>
+                <div id="hodPendingBookingsTable_paginate_wrap"></div>
+            </div>
+        </div>
+
+    }
+
+
+    @* Default: Show calendar for normal users/admin outside pending approvals *@
+    else
+    {
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="card shadow-sm rounded-4">
+                    <!-- Card Header with title -->
+                    <div class="card-header bg-brown text-black d-flex align-items-center">
+                        <h4 class="mb-0">Booking For Hut: <strong>@allowedHut</strong></h4>
+                    </div>
+
+                    <!-- Card Body with calendar -->
+                    <div class="card-body" style="padding: 1rem;">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+<!-- Yourself Booking Modal -->
+<div class="modal fade" id="yourselfBookingModal" tabindex="-1" role="dialog" aria-labelledby="yourselfBookingLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="yourselfBookingForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Booking for Yourself</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Hidden field to store booking date -->
+                    <input type="hidden" id="yourselfBookingDate" />
+
+                    <!-- Fetched fields from database, readonly so user cannot edit -->
+                    <div class="form-group">
+                        <label>Decibel ID</label>
+                        <input type="text" class="form-control" id="yourselfDecibelId" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" id="yourselfFullName" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Primary Email</label>
+                        <input type="email" class="form-control" id="yourselfPrimaryEmail" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Department Name</label>
+                        <input type="text" class="form-control" id="yourselfDepartmentName" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Grade</label>
+                        <input type="text" class="form-control" id="yourselfGrade" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <input type="text" class="form-control" id="yourselfDesignation" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile No</label>
+                        <input type="text" class="form-control" id="yourselfMobileNo" readonly />
+                    </div>
+
+                    <!-- Editable fields user must fill -->
+                    <div class="form-group">
+                        <label>CNIC</label>
+                        <input type="text" class="form-control" id="yourselfCNIC" placeholder="Please Enter CNIC 42201-8164677-7" required pattern="\d{5}-\d{7}-\d{1}" />
+
+                    </div>
+                    <div class="form-group">
+                        <label>No. of Persons</label>
+                        <input type="number" class="form-control" id="yourselfNoOfPersons" placeholder="Enter Total Persons" min="1" required />
+                    </div>
+
+
+                    <!-- Cost of Hut (readonly, auto-calculated) -->
+                    <div class="form-group">
+                        <label>Cost of Hut</label>
+                        <input type="text" class="form-control" id="yourselfCostOfHut" readonly />
+                    </div>
+
+                    <!-- Additional Requirements -->
+                    <div class="form-group">
+                        <label>Additional Requirements</label>
+                        <select class="form-control" id="yourselfAdditionalReqSelect">
+                            <option value="No" selected>No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="yourselfAdditionalReqTextGroup" style="display:none;">
+                        <small class="form-text text-muted">
+                            *If any additional arrangements (live catering, sound, decor, furniture, etc.) will be done, please specify*
+                        </small>
+                        <textarea class="form-control" id="yourselfAdditionalReqText" placeholder="Specify additional arrangements"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="submitYourselfBooking()">Submit Booking</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Nominee Booking Modal -->
+<div class="modal fade" id="nomineeBookingModal" tabindex="-1" role="dialog" aria-labelledby="nomineeBookingLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form id="nomineeBookingForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Booking for Nominee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="nomineeBookingDate" />
+
+                    <div class="form-group">
+                        <label>Nominee Name</label>
+                        <input type="text" class="form-control" id="nomineeName" placeholder="Clients/Family/Friends" required />
+                        <div class="invalid-feedback">Please enter nominee name.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Primary Email</label>
+                        <input type="email" class="form-control" id="nomineePrimaryEmail" placeholder="Enter Email" required />
+                        <div class="invalid-feedback">Please enter a valid email.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department Name</label>
+                        <input type="text" class="form-control" id="nomineeDepartmentName" placeholder="Enter Department Name" required />
+                        <div class="invalid-feedback">Please enter department name.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Grade</label>
+                        <input type="text" class="form-control" id="nomineeGrade" placeholder="Enter Grade" required />
+                        <div class="invalid-feedback">Please enter grade.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <input type="text" class="form-control" id="nomineeDesignation" placeholder="Enter Designation" required />
+                        <div class="invalid-feedback">Please enter designation.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobile No</label>
+                        <input type="text" class="form-control" id="nomineeMobileNo" placeholder="Enter No 03xxxxxxxxx" required />
+                        <div class="invalid-feedback">Please enter a valid 11-digit mobile number starting with 03.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CNIC</label>
+                        <input type="text" class="form-control" id="nomineeCNIC" placeholder="4xxxx-xxxxxxx-x" required />
+                        <div class="invalid-feedback">Please enter a valid CNIC (e.g., 42201-8164677-7).</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>No. of Persons</label>
+                        <input type="number" class="form-control" id="nomineeNoOfPersons" placeholder="Enter Total Persons" min="1" required />
+                        <div class="invalid-feedback">Please enter a valid number of persons (at least 1).</div>
+                    </div>
+
+                    <!-- Cost of Hut (readonly, auto-calculated) -->
+                    <div class="form-group">
+                        <label>Cost of Hut</label>
+                        <input type="text" class="form-control" id="nomineeCostOfHut" readonly />
+                    </div>
+
+                    <!-- Additional Requirements -->
+                    <div class="form-group">
+                        <label>Additional Requirements</label>
+                        <select class="form-control" id="nomineeAdditionalReqSelect">
+                            <option value="No" selected>No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="nomineeAdditionalReqTextGroup" style="display:none;">
+                        <small class="form-text text-muted">
+                            *If any additional arrangements (live catering, sound, decor, furniture, etc.) will be done, please specify*
+                        </small>
+                        <textarea class="form-control" id="nomineeAdditionalReqText" placeholder="Specify additional arrangements"></textarea>
+                    </div>
+
+
+                    <!-- Head Of Depart -->
+                    <div class="form-group">
+                        <label for="HeadOfDepartment">Head of Department</label>
+                        <select id="HeadOfDepartment" name="HeadOfDepartment" class="form-control">
+                            <option value="">Select Head of Department</option>
+                            <!-- Options loaded dynamically -->
+                        </select>
+                        <div class="invalid-feedback">Please select the Head of Department.</div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="submitNomineeBooking()">Submit Booking</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Cancellation Modal -->
+<div class="modal fade" id="cancelBookingModal" tabindex="-1" role="dialog" aria-labelledby="cancelBookingLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="cancelBookingForm">
+            <div class="modal-content">
+                <input type="hidden" id="selectedBookingId" />
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancel Booking</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="cancelBookingMessage"></p>
+                    <div id="cancellationPolicy" style="display:none;">
+                        <h6>Cancellation Policy:</h6>
+                        <ul>
+                            <li>No penalty if cancellation is made 7 or more days prior to visit date.</li>
+                            <li>50% penalty if cancellation is made 3 or fewer days prior to visit date.</li>
+                            <li>100% penalty for no-show.</li>
+                        </ul>
+                        <button type="button" id="btnAgreePolicy" class="btn btn-success">Agreed</button>
+                    </div>
+                    <div id="confirmCancellation" style="display:none;">
+                        <p id="penaltyInfo"></p>
+                        <p>Do you want to cancel your booking on <span id="bookingDate"></span>?</p>
+                        <button type="button" id="btnConfirmCancel" class="btn btn-danger">Yes, Cancel</button>
+                        <button type="button" id="btnCancelCancel" class="btn btn-secondary">No</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<!-- Approval Comments Modal -->
+<div class="modal fade" id="approvalCommentsModal" tabindex="-1" role="dialog" aria-labelledby="approvalCommentsLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Approve Booking</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="approvalComments">Enter approval comments:</label>
+                <textarea id="approvalComments" class="form-control" rows="3"></textarea>
+                <small id="commentsError" class="text-danger" style="display:none;">Comments are required.</small>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" id="btnConfirmApproval">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Comments Modal -->
+<div class="modal fade" id="cancelCommentsModal" tabindex="-1" role="dialog" aria-labelledby="cancelCommentsLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cancel Booking</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="cancelComments">Please enter cancellation comments:</label>
+                <textarea id="cancelComments" class="form-control" rows="3"></textarea>
+                <small id="cancelCommentsError" class="text-danger" style="display:none;">Comments are required.</small>
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmCancel">Cancel Booking</button>*@
+
+                <button type="button" class="btn btn-secondary" id="btnAdminCancelCancel" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btnAdminConfirmCancel">Cancel Booking</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Booking Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="bookingDetailsTable"></table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section styles{
+
+    <style>
+
+        .is-invalid {
+            border-color: #dc3545 !important;
+            background-color: #f8d7da !important;
+        }
+
+        .fc-col-header-cell {
+            background-color: #6c757d !important;
+            color: white !important;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+
+        .fc-daygrid-day {
+            height: 38px !important;
+            min-height: 38px !important;
+            max-height: 38px !important;
+            padding: 2px !important;
+        }
+
+
+        .fc-daygrid-day-top {
+            padding-bottom: 2px !important;
+            cursor: pointer;
+        }
+
+
+        .fc-event-title {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            font-size: 0.75rem;
+        }
+
+
+        #calendar {
+            height: calc(100vh - 200px) !important;
+            max-height: calc(100vh - 200px) !important;
+            min-height: 400px;
+            overflow: hidden !important;
+        }
+
+        .fc-header-toolbar {
+            height: 3rem;
+            overflow: hidden;
+        }
+
+        .fc-daygrid-day-number {
+            color: #000 !important;
+            font-weight: bold !important;
+            font-size: 1rem !important;
+        }
+
+        .fc-toolbar-title {
+            color: #000 !important;
+            font-weight: bold !important;
+            font-size: 1.5rem;
+        }
+
+        .fc-event-title {
+            white-space: pre-line; /* respects \n as line breaks */
+            text-align: center;
+        }
+
+        .fc-col-header-cell-cushion {
+            // background-color: grey !important;
+            color: white !important;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .fc-day-today {
+            background: #eaf6ff !important;
+            border: 2px solid #1976d2 !important;
+            border-radius: 0.5rem !important;
+        }
+
+        .fc-event.booked-event {
+            background-color: #ba0c2f !important;
+            border: none !important;
+            color: #fff !important;
+            font-weight: bold;
+            border-radius: 0.25rem !important;
+            font-size: 0.85rem;
+            padding: 2px 6px;
+            margin-top: 2px;
+        }
+
+        .fc-event.available-event {
+            background-color: #28a745 !important;
+            border: none !important;
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .fc-event.available {
+            background-color: #28a745 !important;
+            border: none !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .fc-event.booked-by-me {
+            background-color: #ba0c2f !important;
+            border: none !important;
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .fc-event.pending-approval-by-me {
+            background-color: #ffd800 !important;
+            border: none !important;
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .fc-event.pending-approval {
+            background-color: #fffa00 !important;
+            border: none !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+
+        .fc-event.restricted-date {
+            background-color: darkred !important;
+            border: none !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .dataTables_paginate {
+            margin-left: auto;
+        }
+    </style>
+}
+
+@section scripts{
+    <script>
+
+
+    // Pass the huts list from server to JS
+    var huts = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Huts));
+    // Set selected hut ID from ViewBag
+    var selectedHutId = @(ViewBag.SelectedHutId ?? 0);
+    var currentUserId = @currentUserId;
+    var isAdmin = @isAdmin.ToString().ToLower();
+    var hutId = @selectedHutId;
+    var calendar;
+    // 1. Fetch restricted dates globally
+    var restrictedDates = [];
+        let isBookingSubmitting = false;
+
+        var pendingBookings = [];
+        var processedBookings = [];
+
+
+
+    // --- 1. Helper function
+    function convertBookingArrayToObject(bookingArray) {
+        var obj = {};
+        if (Array.isArray(bookingArray)) {
+            bookingArray.forEach(function (item) {
+                obj[item.Key] = item.Value;
+            });
+        }
+        return obj;
+    }
+
+
+    // Fetch restricted dates from server ---
+    function fetchRestrictedDates(callback) {
+        $.get('/BHMS/GetRestrictedDates', { hutId: hutId }, function (dates) {
+            restrictedDates = [...new Set(dates)];
+            console.log('Restricted dates fetched:', restrictedDates);
+            if (callback) callback();
+        });
+    }
+
+$(document).ready(function () {
+    var showPending = @showPending.ToString().ToLower();
+    var showHoDPending = @showHoDPending.ToString().ToLower();
+
+    if (showPending) {
+        // Initialize DataTable with DOM controls
+        adminTable = $('#adminPendingBookingsTable').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: true,
+            order: [[0, 'desc']],
+            columnDefs: [
+                { orderable: false, targets: 5 }
+            ],
+            dom: '<"top"lf>rt<"bottom"ip><"clear">',
+            language: {
+                paginate: {
+                    previous: "Previous",
+                    next: "Next"
+                }
+            }
+        });
+
+        $('#adminPendingBookingsTable_info').appendTo($('.card-footer #adminPendingBookingsTable_info'));
+        $('#adminPendingBookingsTable_paginate').appendTo($('.card-footer #adminPendingBookingsTable_paginate'));
+
+        loadPendingBookings();
+    }
+    else if (showHoDPending) {
+        loadHoDPendingBookings();
+    }
+    else {
+
+        fetchRestrictedDates(function () {
+            initializeCalendar();
+        });
+    }
+});
+
+
+
+
+         function setHutAndReload(selectedHutId) {
+            hutId = selectedHutId;
+            calendar.refetchEvents();
+            toastr.info('Switched to ' + (hutId === 1 ? 'Staff Hut' : 'Executive Hut'));
+            if (isAdmin) loadPendingBookings();
+        }
+
+        function updateRowToViewButton(bookingId) {
+            adminTable.rows().every(function () {
+                var data = this.data();
+                if (data[0] == bookingId) { // BookingId is the first column
+                    data[5] = `<button class="btn btn-info btn-sm" onclick="showBookingDetails(${bookingId})">View</button>`;
+                    this.data(data).draw(false);
+                }
+            });
+        }
+
+        function formatJsonDate(jsonDate) {
+            if (!jsonDate) return '';
+
+            // Regex to extract the timestamp from /Date(1750878000000)/
+            var pattern = /\/Date\((\d+)(?:-\d+)?\)\//;
+            var results = pattern.exec(jsonDate);
+
+            if (!results) return jsonDate; // Return original if pattern not matched
+
+            var timestamp = parseInt(results[1], 10);
+            var dt = new Date(timestamp);
+
+            // Format date as dd/MM/yyyy
+            var day = dt.getDate().toString().padStart(2, '0');
+            var month = (dt.getMonth() + 1).toString().padStart(2, '0');
+            var year = dt.getFullYear();
+
+            return `${day}/${month}/${year}`;
+        }
+
+
+
+
+    // Admin Pending Bookings JS
+    var adminTable;
+    function loadPendingBookings() {
+    $.when(
+        $.get('@Url.Action("GetPendingBookings", "BHMS")'),
+        $.get('@Url.Action("GetProcessedBookings", "BHMS")')
+    ).done(function (pendingResp, processedResp) {
+        let pendingData = pendingResp[0] || [];
+        let processedData = processedResp[0] || [];
+
+        // Convert arrays if needed
+        if (Array.isArray(pendingData) && pendingData.length > 0 && Array.isArray(pendingData[0]) && pendingData[0][0].Key) {
+            pendingData = pendingData.map(convertBookingArrayToObject);
+        }
+        if (Array.isArray(processedData) && processedData.length > 0 && Array.isArray(processedData[0]) && processedData[0][0].Key) {
+            processedData = processedData.map(convertBookingArrayToObject);
+        }
+
+        // Mark pending and processed for UI logic
+        pendingData.forEach(b => b.IsPending = true);
+        processedData.forEach(b => b.IsPending = false);
+
+        let allBookings = pendingData.concat(processedData);
+
+        adminTable.clear();
+
+        allBookings.forEach(function (b) {
+            let actionsHtml = '';
+
+
+            //If only want to show view  after approve , declined
+
+            //if (b.IsPending) {
+            //    actionsHtml = `<button class="btn btn-success btn-sm" onclick="showApprovalCommentsModal(${b.BookingId})">Approve</button>
+            //       <button class="btn btn-danger btn-sm" onclick="adminCancelBooking(${b.BookingId})">Decline</button>`;
+            //} else {
+            //    actionsHtml = `<button class="btn btn-info btn-sm" onclick="showBookingDetails(${b.BookingId})">View</button>`;
+            //}
+
+
+            //If want to show view persistant with approve , declined
+
+            actionsHtml = `<button class="btn btn-info btn-sm me-1" onclick="showBookingDetails(${b.BookingId})">View</button>`;
+
+            if (b.IsPending) {
+                actionsHtml += `<button class="btn btn-success btn-sm me-1" onclick="showApprovalCommentsModal(${b.BookingId})">Approve</button>
+                    <button class="btn btn-danger btn-sm" onclick="adminCancelBooking(${b.BookingId})">Decline</button>`;
+            }
+
+
+            adminTable.row.add([
+                b.BookingId || '-',
+                formatJsonDate(b.BookingDate) || '-',
+                b.UserName || '-',
+                b.DecibelId || '-',
+                b.HutName || '-',
+                actionsHtml
+            ]);
+        });
+
+        adminTable.draw();
+    }).fail(function () {
+        adminTable.clear().draw();
+        alert('Failed to load bookings.');
+    });
+}
+
+
+
+    function initializeCalendar() {
+        var calendarEl = document.getElementById('calendar');
+
+        // Calculate available height dynamically
+        var availableHeight = window.innerHeight - calendarEl.getBoundingClientRect().top - 40; // 40px padding
+
+
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            timeZone: 'local',
+            initialView: 'dayGridMonth',
+            showNonCurrentDates: false,
+            validRange: {
+                start: new Date().toISOString().slice(0, 10),
+                end: new Date(new Date().setMonth(new Date().getMonth() + 3)).toISOString().slice(0, 10)
+            },
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+            },
+            selectable: true,
+
+            events: function (fetchInfo, successCallback, failureCallback) {
+                $.ajax({
+                    url: '@Url.Action("GetBookings", "BHMS")',
+                    method: 'GET',
+                    data: { hutId: hutId },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.length > 0 && Array.isArray(data[0]) && data[0].length > 0 && data[0][0].Key) {
+                            data = data.map(convertBookingArrayToObject);
+                        }
+
+                        let events = [];
+                        let current = new Date(fetchInfo.startStr);
+                        const end = new Date(fetchInfo.endStr);
+
+                        while (current <= end) {
+                            const dateStr = current.toISOString().slice(0, 10);
+
+                            if (restrictedDates.includes(dateStr)) {
+
+                                events.push({
+                                    title: 'Restricted',
+                                    start: dateStr,
+                                    allDay: true,
+                                    classNames: ['restricted-date']
+                                });
+                            } else {
+
+                                const bookingsForDate = data.filter(b => b.BookingDate === dateStr);
+                                const activeBooking = bookingsForDate.find(b =>
+                                    b.BookingStatus === "Booked" || b.BookingStatus === "PendingApproval"
+                                );
+
+                                if (activeBooking) {
+                                    if (activeBooking.BookingStatus === "Booked") {
+                                        if (!activeBooking.IsApproved) {
+                                            if (parseInt(activeBooking.UserId) === currentUserId) {
+                                                events.push({
+                                                    title: 'Pending Approval(Me)',
+                                                    start: dateStr,
+                                                    allDay: true,
+                                                    classNames: ['pending-approval-by-me']
+                                                });
+                                            } else {
+                                                events.push({
+                                                    title: 'Pending Approval',
+                                                    start: dateStr,
+                                                    allDay: true,
+                                                    classNames: ['pending-approval']
+                                                });
+                                            }
+                                        } else {
+                                            if (parseInt(activeBooking.UserId) === currentUserId) {
+                                                events.push({
+                                                    title: 'Booked by Me',
+                                                    start: dateStr,
+                                                    allDay: true,
+                                                    classNames: ['booked-by-me']
+                                                });
+                                            } else {
+                                                events.push({
+                                                    title: 'Booked',
+                                                    start: dateStr,
+                                                    allDay: true,
+                                                    classNames: ['booked-by-me']
+                                                });
+                                            }
+                                        }
+                                    } else if (activeBooking.BookingStatus === "PendingApproval") {
+                                        if (parseInt(activeBooking.UserId) === currentUserId) {
+                                            events.push({
+                                                title: 'Pending Approval(Me)',
+                                                start: dateStr,
+                                                allDay: true,
+                                                classNames: ['pending-approval-by-me']
+                                            });
+                                        } else {
+                                            events.push({
+                                                title: 'Pending Approval',
+                                                start: dateStr,
+                                                allDay: true,
+                                                classNames: ['pending-approval']
+                                            });
+                                        }
+                                    }
+                                } else {
+                                    events.push({
+                                        title: 'Available',
+                                        start: dateStr,
+                                        allDay: true,
+                                        classNames: ['available']
+                                    });
+                                }
+                            }
+
+                            current.setDate(current.getDate() + 1);
+                        }
+
+                        successCallback(events);
+                    },
+                    error: function () {
+                        toastr.error("Could not load bookings from server.");
+                        failureCallback();
+                    }
+                });
+            },
+
+            eventContent: function (arg) {
+                return { html: `<div class="${arg.event.classNames.join(' ')}">${arg.event.title}</div>` };
+            },
+
+            dateClick: function (info) {
+                var isRestricted = calendar.getEvents().some(ev => ev.title === 'Restricted' && ev.startStr === info.dateStr);
+
+                if (isAdmin === true || isAdmin === "true") {
+                    if (isRestricted) {
+
+                        Swal.fire({
+                            title: 'Restricted Date',
+                            text: 'This date is restricted. Do you want to remove the restriction?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, Unrestrict',
+                            cancelButtonText: 'No'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $.post('/BHMS/UnrestrictDate', { hutId: hutId, date: info.dateStr }, function () {
+                                    fetchRestrictedDates(function () {
+                                        calendar.refetchEvents();
+                                        toastr.success('Restriction removed.');
+                                    });
+                                });
+                            }
+                        });
+                        return;
+                    } else {
+
+                        Swal.fire({
+                            title: 'Admin Action',
+                            text: 'What do you want? Choose!',
+                            icon: 'question',
+                            showCancelButton: true,
+                            showDenyButton: true,
+                            confirmButtonText: 'Booking/Cancellation',
+                            denyButtonText: 'Restrict',
+                            cancelButtonText: 'Cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                handleBookingOrCancellation(info);
+                            } else if (result.isDenied) {
+                                Swal.fire({
+                                    title: 'Confirm Restriction',
+                                    text: 'Do you want to restrict ' + info.dateStr + '?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yes, Restrict',
+                                    cancelButtonText: 'No'
+                                }).then((res) => {
+                                    if (res.isConfirmed) {
+                                        $.post('/BHMS/RestrictDate', { hutId: hutId, date: info.dateStr }, function () {
+                                            fetchRestrictedDates(function () {
+                                                calendar.refetchEvents();
+                                                toastr.error('Date restricted.');
+                                            });
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                        return;
+                    }
+                } else {
+                    if (isRestricted) {
+                        toastr.error('This date is restricted and not available for booking.');
+                        return;
+                    } else {
+                        handleBookingOrCancellation(info);
+                    }
+                }
+
+                // existing booking/cancellation logic function
+                function handleBookingOrCancellation(info)
+                {
+                    $.ajax({
+                    url: '@Url.Action("GetBookings", "BHMS")',
+                    data: { hutId: hutId },
+                    success: function (data) {
+                        // Convert array of arrays to array of objects
+                        function convertBookingArrayToObject(bookingArray) {
+                            let obj = {};
+                            bookingArray.forEach(item => {
+                                obj[item.Key] = item.Value;
+                            });
+                            return obj;
+                        }
+
+                        if (data.length > 0 && Array.isArray(data[0]) && data[0].length > 0 && data[0][0].Key) {
+                            data = data.map(convertBookingArrayToObject);
+                        }
+
+                        console.log("Clicked date:", info.dateStr);
+                        console.log("Current UserId:", currentUserId);
+                        console.log("Bookings data after conversion:", data);
+
+                        var booking = data.find(b =>
+                            b.BookingDate === info.dateStr &&
+                            Number(b.UserId) === Number(currentUserId) &&
+                            b.BookingStatus === 'Booked');
+
+                        console.log("Matched booking:", booking);
+
+
+                        if (booking) {
+                            // Show cancellation confirmation modal
+                            Swal.fire({
+                                title: 'Cancel Booking?',
+                                text: 'Do you want to cancel your booking on ' + info.dateStr + '?',
+                                icon: 'question',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    showCancellationPolicy(booking.BookingId);
+                                }
+                            });
+                        } else {
+                            // No booking, proceed with booking flow
+                            $.ajax({
+                                url: '@Url.Action("CheckBookingPolicy", "BHMS")',
+                                method: 'POST',
+                                data: { date: info.dateStr, hutId: hutId },
+                                success: function(res) {
+                                    if (!res.allowed) {
+                                        toastr.error(res.message);
+                                        return;
+                                    }
+                                    Swal.fire({
+                                        title: 'Do you want to book this date?',
+                                        text: info.dateStr,
+                                        icon: 'question',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Yes',
+                                        cancelButtonText: 'No',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            Swal.fire({
+                                                title: 'Book for',
+                                                text: 'Choose booking type',
+                                                icon: 'question',
+                                                showCancelButton: true,
+                                                showDenyButton: true,
+                                                confirmButtonText: 'Myself',
+                                                denyButtonText: 'Nominee',
+                                            }).then((choice) => {
+                                                if (choice.isConfirmed) {
+                                                    openYourselfBookingModal(info.dateStr);
+                                                } else if (choice.isDenied) {
+                                                    openNomineeBookingModal(info.dateStr);
+                                                }
+                                            });
+                                        }
+                                    });
+                                },
+                                error: function() {
+                                    toastr.error('Error checking booking policy.');
+                                }
+                            });
+                            }
+                        }
+                    });
+                }
+
+        }
+        });
+
+        calendar.render();
+
+        if (isAdmin) {
+            loadPendingBookings();
+        }
+
+    }
+
+    // Cancellation modal flow
+    function showCancellationPolicy(bookingId) {
+        $('#cancelBookingMessage').text('');
+        $('#cancellationPolicy').show();
+        $('#confirmCancellation').hide();
+        $('#cancelBookingModal').modal('show');
+
+        // Store bookingId in hidden input (make sure this input exists in your modal)
+        $('#selectedBookingId').val(bookingId);
+
+        $('#btnAgreePolicy').off('click').on('click', function () {
+            // Get cancellation info from server
+            $.get('@Url.Action("GetCancellationInfo", "BHMS")', { bookingId: bookingId }, function (res) {
+                if (res.success) {
+                    $('#cancellationPolicy').hide();
+                    $('#confirmCancellation').show();
+                    $('#bookingDate').text(res.bookingDate);
+                    $('#penaltyInfo').text(res.penaltyMessage);
+
+
+                    /*$('#btnConfirmCancel').off('click').on('click', function () {*/
+                        $('#btnConfirmCancel').off('click').on('click', function () {
+
+                        // Cancel booking
+                        $.post('@Url.Action("CancelBooking", "BHMS")', { BookingId: bookingId, UserId: currentUserId }, function (cancelRes) {
+                            if (cancelRes.success) {
+                                toastr.success(cancelRes.message);
+                                $('#cancelBookingModal').modal('hide');
+                                calendar.refetchEvents();
+                            } else {
+                                toastr.error(cancelRes.message);
+                            }
+                        });
+                    });
+
+              /*      $('#btnCancelCancel').off('click').on('click', function () {*/
+                        $('#btnCancelCancel').off('click').on('click', function () {
+                        $('#cancelBookingModal').modal('hide');
+                    });
+                } else {
+                    toastr.error(res.message);
+                    $('#cancelBookingModal').modal('hide');
+                }
+            });
+        });
+    }
+        function openYourselfBookingModal(dateStr) {
+            $('#yourselfBookingDate').val(dateStr);
+
+            $.get('/BHMS/GetCurrentUserDetails', function (user) {
+                console.log("Fetched user details:", user);
+
+                // If data is array of {Key, Value} pairs, convert to object
+                var userObj = {};
+                if (Array.isArray(user)) {
+                    user.forEach(function (item) {
+                        ///  userObj[item.Key] = item.Value.trim();
+                        userObj[item.Key] = (typeof item.Value === "string") ? item.Value.trim() : (item.Value != null ? item.Value.toString() : "");
+
+                    });
+                } else {
+                    userObj = user;
+                }
+
+                if (userObj && userObj.DecibelId) {
+                    $('#yourselfDecibelId').val(userObj.DecibelId);
+                    $('#yourselfFullName').val(userObj.FullName);
+                    $('#yourselfPrimaryEmail').val(userObj.PrimaryEmail);
+                    $('#yourselfDepartmentName').val(userObj.DepartmentName);
+                    $('#yourselfGrade').val(userObj.Grade);
+                    $('#yourselfDesignation').val(userObj.Designation);
+                    $('#yourselfMobileNo').val(userObj.MobileNo);
+
+                    // Clear editable fields
+                    $('#yourselfCNIC').val('');
+                    $('#yourselfNoOfPersons').val(1);
+
+                    prepareYourselfModal();
+
+
+
+                    $('#yourselfBookingModal').modal('show');
+                } else {
+                    toastr.error("Failed to load user details.");
+                }
+            });
+        }
+
+
+
+
+    function openNomineeBookingModal(dateStr) {
+        $('#nomineeBookingDate').val(dateStr);
+        $('#nomineeName').val('');
+        $('#nomineePrimaryEmail').val('');
+        $('#nomineeDepartmentName').val('');
+        $('#nomineeGrade').val('');
+        $('#nomineeDesignation').val('');
+        $('#nomineeMobileNo').val('');
+        $('#nomineeCNIC').val('');
+        $('#nomineeNoOfPersons').val(1);
+
+        prepareNomineeModal();
+
+
+        $('#nomineeBookingModal').modal('show');
+    }
+
+
+
+
+    // Helper: Find hut object by ID
+    function getHutById(hutId) {
+        return huts.find(h => h.HutId === hutId);
+    }
+
+    // Dynamic staff hut pricing logic (adjust as needed)
+    function getDynamicStaffHutCost(hut, persons) {
+        // Example: Use ranges based on number of persons, but base cost from DB
+        if (persons >= 1 && persons <= 10) return hut.CostOfHut;
+        if (persons >= 11 && persons <= 20) return hut.CostOfHut * 2;
+        if (persons >= 21 && persons <= 30) return hut.CostOfHut * 3;
+        if (persons >= 31) return hut.CostOfHut * 4;
+        return hut.CostOfHut;
+    }
+
+    // Update cost for Yourself form
+    function updateYourselfCost() {
+        var noOfPersons = parseInt($('#yourselfNoOfPersons').val()) || 0;
+        var hut = getHutById(selectedHutId);
+        if (!hut) {
+            $('#yourselfCostOfHut').val("0");
+            return;
+        }
+        var cost = 0;
+        if (hut.HutType.toLowerCase() === 'executive') {
+            cost = hut.CostOfHut;
+        } else {
+            cost = getDynamicStaffHutCost(hut, noOfPersons);
+        }
+        $('#yourselfCostOfHut').val(cost.toLocaleString());
+    }
+
+    // Update cost for Nominee form
+    function updateNomineeCost() {
+        var noOfPersons = parseInt($('#nomineeNoOfPersons').val()) || 0;
+        var hut = getHutById(selectedHutId);
+        if (!hut) {
+            $('#nomineeCostOfHut').val("0");
+            return;
+        }
+        var cost = 0;
+        if (hut.HutType.toLowerCase() === 'executive') {
+            cost = hut.CostOfHut;
+        } else {
+            cost = getDynamicStaffHutCost(hut, noOfPersons);
+        }
+        $('#nomineeCostOfHut').val(cost.toLocaleString());
+    }
+
+
+
+
+
+
+
+
+// Additional Requirements toggle for Yourself
+$('#yourselfAdditionalReqSelect').on('change', function() {
+    if ($(this).val() === 'Yes') {
+        $('#yourselfAdditionalReqTextGroup').show();
+    } else {
+        $('#yourselfAdditionalReqTextGroup').hide();
+        $('#yourselfAdditionalReqText').val('');
+    }
+});
+
+// Additional Requirements toggle for Nominee
+$('#nomineeAdditionalReqSelect').on('change', function() {
+    if ($(this).val() === 'Yes') {
+        $('#nomineeAdditionalReqTextGroup').show();
+    } else {
+        $('#nomineeAdditionalReqTextGroup').hide();
+        $('#nomineeAdditionalReqText').val('');
+    }
+});
+
+// Bind cost update on No of Persons change
+$('#yourselfNoOfPersons').on('input', updateYourselfCost);
+$('#nomineeNoOfPersons').on('input', updateNomineeCost);
+
+// Call update cost when modal opens
+function prepareYourselfModal() {
+    updateYourselfCost();
+    $('#yourselfAdditionalReqSelect').val('No').trigger('change');
+}
+function prepareNomineeModal() {
+    updateNomineeCost();
+    $('#nomineeAdditionalReqSelect').val('No').trigger('change');
+}
+
+
+        // --- Validation for Yourself Booking Form ---
+        function validateYourselfForm() {
+
+            console.log('Validation started');
+
+            let isValid = true;
+            let errorMsg = '';
+
+            // Required fields
+            const requiredFields = [
+                '#yourselfDecibelId',
+                '#yourselfFullName',
+                '#yourselfPrimaryEmail',
+                '#yourselfDepartmentName',
+                '#yourselfGrade',
+                '#yourselfDesignation',
+                '#yourselfMobileNo',
+                '#yourselfCNIC',
+                '#yourselfNoOfPersons'
+            ];
+
+            requiredFields.forEach(function (selector) {
+                const val = $(selector).val();
+                if (!val || val.trim() === '') {
+                    isValid = false;
+                    $(selector).addClass('is-invalid');
+                } else {
+                    $(selector).removeClass('is-invalid');
+                }
+            });
+
+
+            // CNIC pattern check
+            const cnic = $('#yourselfCNIC').val();
+            const cnicPattern = /^\d{5}-\d{7}-\d{1}$/;
+            if (cnic && !cnicPattern.test(cnic)) {
+                isValid = false;
+                $('#yourselfCNIC').addClass('is-invalid');
+                errorMsg = 'Please enter a valid CNIC (e.g., 42201-8164677-7).';
+            } else {
+                $('#yourselfCNIC').removeClass('is-invalid');
+            }
+
+            // --Validation for "No. of Persons" -- //
+            const numPersons = $('#yourselfNoOfPersons').val();
+            console.log('CNIC:', $('#yourselfCNIC').val());
+            console.log('Number of Persons:', $('#yourselfNoOfPersons').val());
+
+            if (numPersons === '' || numPersons == null) {
+                isValid = false;
+                $('#yourselfNoOfPersons').addClass('is-invalid');
+                errorMsg = 'Please enter the number of persons.';
+            } else if (parseInt(numPersons, 10) <= 0 || isNaN(parseInt(numPersons, 10))) {
+                isValid = false;
+                $('#yourselfNoOfPersons').addClass('is-invalid');
+                errorMsg = 'Please enter valid No. Of Persons. It must be a positive number.';
+            } else {
+                $('#yourselfNoOfPersons').removeClass('is-invalid');
+            }
+
+
+            // Show error if invalid
+
+            if (!isValid) {
+                toastr.error(errorMsg || 'Please fill all required fields correctly.');
+            }
+            return isValid;
+        }
+
+
+
+
+        // --- Validation for Nominee Booking Form ---
+
+function validateNomineeForm() {
+    let isValid = true;
+
+    // Required fields
+    const requiredFields = [
+        '#nomineeName',
+        '#nomineePrimaryEmail',
+        '#nomineeDepartmentName',
+        '#nomineeGrade',
+        '#nomineeDesignation',
+        '#nomineeMobileNo',
+        '#nomineeCNIC',
+        '#nomineeNoOfPersons'
+    ];
+
+    requiredFields.forEach(function(selector) {
+        const val = $(selector).val();
+        if (!val || val.trim() === '') {
+            isValid = false;
+
+            $(selector).addClass('is-invalid');
+            errorMsg = 'Please fill all required fields.';
+        } else {
+            $(selector).removeClass('is-invalid');
+        }
+    });
+
+     @*// Validate Primary Email with regex
+    const email = $('#nomineePrimaryEmail').val();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+        isValid = false;
+        $('#nomineePrimaryEmail').addClass('is-invalid');
+    } else {
+        $('#nomineePrimaryEmail').removeClass('is-invalid');
+    }
+
+    // Validate Department Name
+    if (!$('#nomineeDepartmentName').val().trim()) {
+        isValid = false;
+        $('#nomineeDepartmentName').addClass('is-invalid');
+    } else {
+        $('#nomineeDepartmentName').removeClass('is-invalid');
+    }
+
+    // Validate Grade
+    if (!$('#nomineeGrade').val().trim()) {
+        isValid = false;
+        $('#nomineeGrade').addClass('is-invalid');
+    } else {
+        $('#nomineeGrade').removeClass('is-invalid');
+    }
+
+    // Validate Designation
+    if (!$('#nomineeDesignation').val().trim()) {
+        isValid = false;
+        $('#nomineeDesignation').addClass('is-invalid');
+    } else {
+        $('#nomineeDesignation').removeClass('is-invalid');
+    }*@
+
+
+
+    // CNIC pattern check
+    const cnic = $('#nomineeCNIC').val();
+    const pattern = /^\d{5}-\d{7}-\d{1}$/;
+    if (!cnic || !pattern.test(cnic)) {
+        isValid = false;
+        $('#nomineeCNIC').addClass('is-invalid');
+    } else {
+        $('#nomineeCNIC').removeClass('is-invalid');
+    }
+
+    // Mobile number: only digits, 11 chars, starts with 03
+    const mobile = $('#nomineeMobileNo').val();
+    if (!/^(03\d{9})$/.test(mobile)) {
+        isValid = false;
+        $('#nomineeMobileNo').addClass('is-invalid');
+    } else {
+        $('#nomineeMobileNo').removeClass('is-invalid');
+    }
+
+    // No. of Persons > 0
+    const persons = $('#nomineeNoOfPersons').val();
+    if (!persons || parseInt(persons) < 1) {
+        isValid = false;
+        $('#nomineeNoOfPersons').addClass('is-invalid');
+    } else {
+        $('#nomineeNoOfPersons').removeClass('is-invalid');
+    }
+
+
+    // Validate Head of Department selection:
+    const hod = $('#HeadOfDepartment').val();
+    if (!hod) {
+        isValid = false;
+        $('#HeadOfDepartment').addClass('is-invalid');
+    } else {
+        $('#HeadOfDepartment').removeClass('is-invalid');
+    }
+
+
+    // Validate Additional Requirements
+const nomineeAdditionalReq = $('#nomineeAdditionalReqSelect').val();
+if (nomineeAdditionalReq === 'Yes') {
+    const reqText = $('#nomineeAdditionalReqText').val().trim();
+    if (reqText === '') {
+        isValid = false;
+        $('#nomineeAdditionalReqText').addClass('is-invalid').attr('title', 'Please specify additional arrangements.');
+    } else {
+        $('#nomineeAdditionalReqText').removeClass('is-invalid').removeAttr('title');
+    }
+}
+
+
+
+
+    // Show error if invalid
+    if (!isValid) {
+        toastr.error(errorMsg || 'Please fill all required fields correctly.');
+    }
+    return isValid;
+}
+
+
+
+    function submitYourselfBooking() {
+    console.log($('#yourselfCostOfHut').val().replace(/,/g, ''))
+
+    if (!validateYourselfForm()) return; // Only submit if valid
+
+    var data = {
+    Date: $('#yourselfBookingDate').val(),
+    HutId: hutId,
+    BookingFor: 'Myself',
+    UserDetails: {
+    DecibelId: $('#yourselfDecibelId').val(),
+    FullName: $('#yourselfFullName').val(),
+    PrimaryEmail: $('#yourselfPrimaryEmail').val(),
+    DepartmentName: $('#yourselfDepartmentName').val(),
+    Grade: $('#yourselfGrade').val(),
+    Designation: $('#yourselfDesignation').val(),
+    MobileNo: $('#yourselfMobileNo').val(),
+    CNIC: $('#yourselfCNIC').val(),
+    NoOfPersons: parseInt($('#yourselfNoOfPersons').val()),
+
+    CostOfHut: parseFloat($('#yourselfCostOfHut').val().replace(/,/g, '')) || 0,
+    HasAdditionalRequirements: $('#yourselfAdditionalReqSelect').val() === 'Yes',
+    AdditionalRequirements: $('#yourselfAdditionalReqText').val()
+
+
+
+    }
+    };
+
+    submitBooking(data);
+    }
+
+
+    function submitNomineeBooking() {
+
+    var $selectedOption = $('#HeadOfDepartment option:selected');
+    var headId = $selectedOption.val();
+    var headEmail = $selectedOption.data('email');
+    var headName = $selectedOption.text();
+
+    if (!validateNomineeForm()) return; // Only submit if valid
+
+    var data = {
+    Date: $('#nomineeBookingDate').val(),
+    HutId: hutId,
+    BookingFor: 'Nominee',
+    NomineeDetails: {
+    NomineeName: $('#nomineeName').val(),
+    PrimaryEmail: $('#nomineePrimaryEmail').val(),
+    DepartmentName: $('#nomineeDepartmentName').val(),
+    Grade: $('#nomineeGrade').val(),
+    Designation: $('#nomineeDesignation').val(),
+    MobileNo: $('#nomineeMobileNo').val(),
+    CNIC: $('#nomineeCNIC').val(),
+    NoOfPersons: parseInt($('#nomineeNoOfPersons').val()),
+
+    CostOfHut: parseFloat($('#nomineeCostOfHut').val().replace(/,/g, '')) || 0,
+    HasAdditionalRequirements: $('#nomineeAdditionalReqSelect').val() === 'Yes',
+    AdditionalRequirements: $('#nomineeAdditionalReqText').val(),
+    // headOfDepartment: $('#HeadOfDepartment').val(),
+
+    HeadOfDepartment: headName,      // send name for existing column
+    HeadOfDepartmentId: headId,      // send ID for new column
+    HeadOfDepartmentEmail: headEmail // send Email for new column
+
+
+
+
+    }
+    };
+    submitBooking(data);
+    }
+
+    function submitBooking(data) {
+    if (isBookingSubmitting) {
+    return; // Prevent multiple clicks/submissions
+    }
+    isBookingSubmitting = true;
+
+    // Find and disable the submit button, show loader
+    var $submitBtn = $('#yourselfBookingModal button[type="submit"], #nomineeBookingModal button[type="submit"]');
+    var originalText = $submitBtn.html();
+    $submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Processing...');
+
+    $.ajax({
+    url: '@Url.Action("BookDate", "BHMS")',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(data),
+    success: function(res) {
+    if (res.statusCode === 200) {
+    toastr.success(res.statusMessage);
+    $('#yourselfBookingModal').modal('hide');
+    $('#nomineeBookingModal').modal('hide');
+    calendar.refetchEvents();
+    } else {
+
+    if (res.statusMessage && res.statusMessage.indexOf("Cannot insert the value NULL into column") !== -1) {
+    toastr.error("Please fill in all required fields before submitting your booking.");
+    } else {
+    toastr.error(res.statusMessage || "Booking failed. Please check your input and try again.");
+    }
+    // --- END: Improved error message handling ---
+    }
+    },
+    error: function () {
+    toastr.error('An error occurred while booking.');
+    },
+    complete: function () {
+    $submitBtn.prop('disabled', false).html(originalText);
+    isBookingSubmitting = false;
+    }
+    });
+    }
+
+
+    // Approval modal logic
+    let currentApprovalBookingId = 0;
+
+    function showApprovalCommentsModal(bookingId) {
+    currentApprovalBookingId = bookingId;
+    $('#approvalComments').val('');
+    $('#commentsError').hide();
+    $('#approvalCommentsModal').modal('show');
+    }
+
+    $('#btnConfirmApproval').off('click').on('click', function () {
+    const comments = $('#approvalComments').val().trim();
+    if (!comments) {
+    $('#commentsError').show();
+    return;
+    }
+    $('#commentsError').hide();
+
+    $.ajax({
+    url: '@Url.Action("ApproveBooking", "BHMS")',
+    type: 'POST',
+    data: {
+    bookingId: currentApprovalBookingId,
+    comments: comments
+    },
+    success: function (response) {
+    if (response.success) {
+    toastr.success('Booking approved successfully!');
+        $('#approvalCommentsModal').modal('hide');
+        updateRowToViewButton(currentApprovalBookingId);
+
+
+    if (response.email) {
+    toastr.info(`Notification email sent to ${response.email}`);
+    }
+
+    $('#approvalCommentsModal').modal('hide');
+    loadPendingBookings();
+    if (typeof calendar !== "undefined") calendar.refetchEvents();
+    } else {
+    toastr.error(response.message || 'Failed to approve booking.');
+    }
+    },
+    error: function () {
+    toastr.error('Error occurred while approving booking.');
+    }
+    });
+    });
+
+    // Cancel button just closes modal (handled by data-dismiss="modal")
+
+
+    // Cancel button just closes modal (no action needed)
+    $('#btnCancelApproval').off('click').on('click', function () {
+    $('#approvalCommentsModal').modal('hide');
+    });
+
+
+
+    // Variable to hold the booking ID being cancelled
+    let currentCancelBookingId = 0;
+
+    // Function to open the Cancel Comments modal
+    function adminCancelBooking(bookingId) {
+    console.log("adminCancelBooking called with bookingId:", bookingId);
+    currentCancelBookingId = bookingId;
+    $('#cancelComments').val('');
+    $('#cancelCommentsError').hide();
+    $('#cancelCommentsModal').modal('show');
+    }
+
+    // Cancel Booking confirmation button click handler
+    $('#btnAdminConfirmCancel').off('click').on('click', function () {
+    const comments = $('#cancelComments').val().trim();
+
+    if (!comments) {
+    $('#cancelCommentsError').show();
+    return;
+    }
+
+    $('#cancelCommentsError').hide();
+
+    $.ajax({
+    url: '@Url.Action("AdminCancelBooking", "BHMS")', // Change to your actual cancel action
+    type: 'POST',
+    data: {
+    bookingId: currentCancelBookingId,
+    comments: comments
+    },
+    dataType: 'json',
+    success: function (response) {
+    if (response.success) {
+        toastr.success('Booking cancelled successfully!');
+        $('#cancelCommentsModal').modal('hide');
+        updateRowToViewButton(currentApprovalBookingId);
+
+    if (response.email) {
+    toastr.info(`Notification email sent to ${response.email}`);
+    }
+
+    $('#cancelCommentsModal').modal('hide');
+    loadPendingBookings(); // Reload pending bookings or update UI accordingly
+    if (typeof calendar !== "undefined") calendar.refetchEvents();
+    } else {
+    toastr.error(response.message || 'Failed to cancel booking.');
+    }
+    },
+    error: function () {
+    toastr.error('Error occurred while cancelling booking.');
+    }
+    });
+    });
+
+    // Cancel modal close button just closes modal (handled by data-dismiss="modal")
+    $('#btnAdminCancelCancel').off('click').on('click', function () {
+    $('#cancelCommentsModal').modal('hide');
+    });
+
+    // Load Heads of Department dropdown on nominee modal open
+    $('#nomineeBookingModal').on('show.bs.modal', function () {
+    console.log("Nominee booking modal opened. Fetching Heads of Department...");
+
+    $.ajax({
+    url: '/BHMS/GetHeadsOfDepartment',
+    type: 'GET',
+    success: function (data) {
+    console.log("Heads of Department data received:", data);
+    var $dropdown = $('#HeadOfDepartment');
+    $dropdown.empty();
+    $dropdown.append('<option value="">Select Head of Department</option>'); // Placeholder option
+
+    $.each(data, function (i, item) {
+    // Trim spaces from DecibelId and FullName before appending
+    var id = item.DecibelId.trim();
+    var name = item.FullName.trim();
+    var email = item.DepartmentName.trim(); // This is email from your backend
+
+    $dropdown.append('<option value="' + id + '" data-email="' + email + '">' + name + '</option>');
+    });
+    },
+    error: function (xhr, status, error) {
+    console.error("Error fetching Heads of Department:", status, error);
+    alert('Could not load heads of department.');
+    }
+    });
+    });
+
+
+
+    // HOD Pending Bookings Table JS
+
+   var hodTable;
+
+function loadHoDPendingBookings() {
+    $.when(
+        $.get('@Url.Action("GetPendingBookingsForHOD", "BHMS")'),
+        $.get('@Url.Action("GetProcessedBookingsForHOD", "BHMS")')
+    ).done(function (pendingResp, processedResp) {
+        let pendingData = pendingResp[0] || [];
+        let processedData = processedResp[0] || [];
+
+        if (Array.isArray(pendingData) && pendingData.length > 0 && Array.isArray(pendingData[0]) && pendingData[0][0].Key) {
+            pendingData = pendingData.map(convertBookingArrayToObject);
+        }
+        if (Array.isArray(processedData) && processedData.length > 0 && Array.isArray(processedData[0]) && processedData[0][0].Key) {
+            processedData = processedData.map(convertBookingArrayToObject);
+        }
+
+        pendingData.forEach(b => b.IsPending = true);
+        processedData.forEach(b => b.IsPending = false);
+
+        let allBookings = pendingData.concat(processedData);
+
+        hodTable.clear();
+
+        allBookings.forEach(function (b) {
+            let actionsHtml = `<button class="btn btn-info btn-sm me-1" onclick="showBookingDetails(${b.BookingId})">View</button>`;
+            if (b.IsPending) {
+                actionsHtml += `<button class="btn btn-success btn-sm me-1" onclick="openHODApprovalModal(${b.BookingId})">Approve</button>
+                        <button class="btn btn-danger btn-sm" onclick="openHODCancelModal(${b.BookingId})">Decline</button>`;
+            }
+
+            hodTable.row.add([
+                b.BookingId || '-',
+                formatJsonDate(b.BookingDate) || '-',
+                b.DecibelId || '-',
+                b.UserName || '-',
+                b.NomineeName || '-',
+                b.HutName || '-',
+                b.CostOfHut || '-',
+                actionsHtml
+            ]);
+        });
+
+        hodTable.draw();
+    }).fail(function () {
+        hodTable.clear().draw();
+        toastr.error('Failed to load HoD bookings.');
+    });
+}
+
+$(document).ready(function () {
+    var showPending = @showPending.ToString().ToLower();
+    var showHoDPending = @showHoDPending.ToString().ToLower();
+
+    if (showPending) {
+        // Admin DataTable init and loadPendingBookings() as you have
+        // ...
+    }
+    else if (showHoDPending) {
+        hodTable = $('#hodPendingBookingsTable').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: true,
+            order: [[0, 'desc']],
+            columnDefs: [
+                { orderable: false, targets: 7 } // Actions column
+            ],
+            dom: '<"top"lf>rt<"bottom"ip><"clear">',
+            language: {
+                paginate: {
+                    previous: "Previous",
+                    next: "Next"
+                }
+            }
+        });
+
+        $('#hodPendingBookingsTable_info_wrap').appendTo($('.card-footer #hodPendingBookingsTable_info_wrap'));
+        $('#hodPendingBookingsTable_paginate_wrap').appendTo($('.card-footer #hodPendingBookingsTable_paginate_wrap'));
+
+        loadHoDPendingBookings();
+    }
+    else {
+        fetchRestrictedDates(function () {
+            initializeCalendar();
+        });
+    }
+});
+
+
+
+
+    // Open approval modal and handle approval
+    // For HoD approval
+
+    function openHODApprovalModal(bookingId) {
+    $('#approvalComments').val('');
+    $('#btnConfirmApproval').off('click').on('click', function () {
+    var comments = $('#approvalComments').val();
+    $.ajax({
+    url: '/BHMS/ApproveBookingByHOD',
+    type: 'POST',
+    data: {
+    bookingId: bookingId,
+    comments: comments
+    },
+    success: function (response) {
+    if (response.success) {
+    toastr.success('Booking approved successfully!');
+        $('#approvalCommentsModal').modal('hide');
+        updateRowToViewButton(currentApprovalBookingId);
+
+    if (response.email) {
+    toastr.info(`Notification email sent to ${response.email}`);
+    }
+
+    $('#approvalCommentsModal').modal('hide');
+    loadHoDPendingBookings();
+    if (typeof calendar !== 'undefined') calendar.refetchEvents();
+    } else {
+    toastr.error(response.message || 'Failed to approve booking.');
+    }
+    },
+    error: function () {
+    toastr.error('Error occurred while approving booking.');
+    }
+    });
+    });
+    $('#approvalCommentsModal').modal('show');
+    }
+
+
+
+    // Open cancel modal and handle cancellation
+    // For HoD cancellation
+
+    function openHODCancelModal(bookingId) {
+    $('#cancelComments').val('');
+    $('#btnAdminConfirmCancel').off('click').on('click', function () {
+    var comments = $('#cancelComments').val();
+    $.ajax({
+    url: '/BHMS/CancelBookingByHOD',
+    type: 'POST',
+    data: {
+    bookingId: bookingId,
+    comments: comments
+    },
+    success: function (response) {
+    if (response.success) {
+        toastr.success('Booking cancelled successfully!');
+        $('#cancelCommentsModal').modal('hide');
+        updateRowToViewButton(currentCancelBookingId);
+
+
+    if (response.email) {
+    toastr.info(`Notification email sent to ${response.email}`);
+    }
+
+    $('#cancelCommentsModal').modal('hide');
+    loadHoDPendingBookings();
+    } else {
+    toastr.error(response.message || 'Failed to cancel booking.');
+    }
+    },
+    error: function () {
+    toastr.error('Error occurred while cancelling booking.');
+    }
+    });
+    });
+    $('#cancelCommentsModal').modal('show');
+    }
+
+        function showBookingDetails(bookingId) {
+            $.get('/BHMS/GetBookingDetails', { bookingId: bookingId }, function (data) {
+
+                let formattedDate = formatJsonDate(data.BookingDate);
+
+                $('#bookingDateField').text(formattedDate);
+
+                const detailsTable = $('#bookingDetailsTable');
+                detailsTable.empty();
+                detailsTable.append('<thead><tr><th>Field</th><th>Value</th></tr></thead>');
+
+                const tbody = $('<tbody></tbody>');
+
+                // Flatten array of {Key, Value} to object
+                let flatData = {};
+                if (Array.isArray(data)) {
+                    data.forEach(item => {
+                        flatData[item.Key] = item.Value;
+                    });
+                } else {
+                    flatData = data;
+                }
+
+                Object.keys(flatData).forEach(key => {
+                    let value = flatData[key];
+                    if (value === null || value === undefined || value === "") return;
+                    if (typeof value === 'boolean') value = value ? 'Yes' : 'No';
+                    if (key.toLowerCase().includes('date') && value) {
+                        value = formatJsonDate(value);
+                    }
+
+                    tbody.append(`<tr><td>${formatFieldName(key)}</td><td>${value}</td></tr>`);
+                });
+
+                detailsTable.append(tbody);
+                $('#bookingDetailsModal').modal('show');
+            });
+        }
+
+
+
+
+        function formatFieldName(key) {
+            return key.replace(/([A-Z])/g, ' $1')
+                .replace(/^./, str => str.toUpperCase())
+                .replace(/H O D/g, 'HOD')
+                .replace(/C N I C/g, 'CNIC')
+                .replace(/I D/g, 'ID');
+        }
+
+
+
+
+    </script>
+}

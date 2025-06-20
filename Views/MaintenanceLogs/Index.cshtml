@@ -1,0 +1,450 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    @model List<BHMS_Portal.Models.Booking>
+
+    var session = (BHMS_Portal.Models.SessionModel)Session["BHMS_PortalSession"];
+    ViewBag.CurrentUserId = session.UserId;
+
+    ViewBag.Title = "Maintenance Logs";
+
+    string userType = session.UserType;
+
+    int selectedHutId = ViewBag.SelectedHutId ?? 0;
+    int hutId = selectedHutId;
+    int currentUserId = session.UserId;
+    bool isAdmin = session != null && session.IsAdmin;
+    bool showPending = ViewBag.ShowPendingApprovals ?? false;
+    bool showHoDPending = ViewBag.ShowHoDPendingApprovals ?? false;
+    string fullName = ViewBag.FullName ?? "";
+    // Hut name for display
+    string hutName = ViewBag.HutName ?? "";
+    string allowedHut = hutName;
+}
+
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm rounded-4">
+        <!-- Card Header -->
+        <div class="card-header bg-brown text-black d-flex align-items-center">
+            <h4 class="mb-0">Maintenance Logs Table</h4>
+        </div>
+
+        <!-- Card Body with Table -->
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mb-0" id="pastBookingsTable" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Booking Date</th>
+                            <th>User Name</th>
+                            <th>Decibel ID</th>
+                            <th>Nominee</th>
+                            <th>Hut</th>
+                            <th>Booking Cost</th>
+                            <th>Total Maintenance Cost</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Card Footer for DataTables Info & Pagination -->
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div id="pastBookingsTable_info" class="dataTables_info"></div>
+            <div id="pastBookingsTable_paginate" class="dataTables_paginate paging_simple_numbers"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal for Maintenance Items -->
+<div class="modal fade" id="maintenanceModal" tabindex="-1" aria-labelledby="maintenanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="maintenanceModalLabel">
+                    Maintenance Items for Booking <span id="modalBookingId"></span>
+                </h5>
+                <button type="button" id="closeButtonModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table" id="maintenanceItemsTable">
+                    <thead>
+                        <tr>
+                            <th>Item Description</th>
+                            <th>Cost (Rs)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <input type="text" id="newItemDescription" class="form-control" placeholder="New item description" />
+                            </td>
+                            <td>
+                                <input type="number" id="newItemCost" class="form-control" placeholder="Cost" min="0" step="0.01" />
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="addItemBtn" type="button">Add Item</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Total Cost</th>
+                            <th colspan="2" id="totalMaintenanceCost">0.00</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="saveMaintenanceBtn" class="btn btn-success">Save</button>
+                <button type="button" id="closeButtonModalClose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="feedbackFormContainer" style="display:none;">
+    @Html.Partial("~/Views/Feedback/_FeedbackForm.cshtml", new BHMS_Portal.Models.FeedbackViewModel())
+</div>
+
+
+
+
+
+@section styles{
+    <style>
+        .fc-col-header-cell {
+            background: transparent !important;
+            color: #b30000 !important;
+            font-weight: bold;
+            font-size: 1rem;
+            // border: none !important;
+        }
+    </style>
+}
+
+@section scripts
+    {
+
+    <script>
+
+        // Helper: Convert array of {Key, Value} pairs to object
+        function convertArrayOfKeyValuePairsToObject(arr) {
+            var obj = {};
+            arr.forEach(function (kv) {
+                obj[kv.Key] = kv.Value;
+            });
+            return obj;
+        }
+
+        // Helper: Parse .NET JSON date format to YYYY-MM-DD
+        function parseDotNetDate(dotNetDateStr) {
+            if (!dotNetDateStr) return '';
+            var timestamp = parseInt(dotNetDateStr.replace(/\/Date\((\d+)\)\//, '$1'));
+            var date = new Date(timestamp);
+            // Format date in local timezone as YYYY-MM-DD
+            var year = date.getFullYear();
+            var month = ('0' + (date.getMonth() + 1)).slice(-2);
+            var day = ('0' + date.getDate()).slice(-2);
+            return `${year}-${month}-${day}`;
+        }
+
+
+        $(document).ready(function () {
+            var maintenanceItems = [];
+            var currentBookingId = null;
+
+            // DataTable initialization (use AJAX if possible for live reload)
+            var bookingsTable = $('#pastBookingsTable').DataTable({
+                ajax: {
+                    url: '/MaintenanceLogs/GetPastBookings',
+                    dataSrc: function (json) {
+                        return json.map(convertArrayOfKeyValuePairsToObject);
+                    }
+                },
+                columns: [
+
+                    {
+                       data: 'BookingId',
+                      title: 'Booking ID',   
+                       visible: true          
+                        },
+
+                    {
+                        data: 'BookingDate',
+                        render: function (data) {
+                            return parseDotNetDate(data);
+                        }
+                    },
+                    { data: 'UserName' },
+                    { data: 'DecibelId' },
+                    { data: 'NomineeName' },
+                    { data: 'HutName' },
+                    {
+                        data: 'CostOfHut',
+                        render: $.fn.dataTable.render.number(',', '.', 2, 'Rs ')
+                    },
+                    {
+                        data: 'TotalMaintenanceCost',
+                        render: $.fn.dataTable.render.number(',', '.', 2, 'Rs ')
+                    },
+                    {
+                        data: 'BookingId',
+                        render: function (data, type, row) {
+                            let manageBtn = `<button class="btn btn-sm btn-primary"  style="margin-bottom: 10px;" onclick="openMaintenanceModal(${data})">Add Items</button>`;
+                            let returnedBtn = '';
+                            if (!row.IsReturned) {
+                                returnedBtn = ` <button class="btn btn-sm btn-success" onclick="markReturned(${data})">Mark as Returned</button>`;
+                            } else {
+                                returnedBtn = ` <span class="badge bg-success">Returned</span>`;
+                            }
+                            return `<div class="d-flex gap-2" style="flex-direction: column; ">${manageBtn}${returnedBtn}</div>`;
+                        },
+                        orderable: false
+                    }
+
+                ],
+
+
+//                        order: [[0, 'desc']],
+//responsive: false,       // Disable responsive to keep horizontal scroll
+//scrollX: true,           // Enable horizontal scroll
+//scrollY: '400px',        // Set vertical scroll height (adjust as needed)
+//scrollCollapse: true,    // Allow table to shrink if fewer rows
+//paging: true,
+//dom: 'lfrtip',
+//language: {
+//    paginate: {
+//        previous: "Previous",
+//        next: "Next"
+//    },
+//    info: "Showing _START_ to _END_ of _TOTAL_ entries"
+
+
+                order: [[0, 'desc']],
+                responsive: true,
+                scrollX: true,
+                dom: 'lfrtip',
+                language: {
+                    paginate: {
+                        previous: "Previous",
+                        next: "Next"
+                    },
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries"
+                }
+            });
+
+            // Move DataTables info and pagination to card footer after each draw
+            bookingsTable.on('draw', function () {
+                $('#pastBookingsTable_info').appendTo('#pastBookingsTable_info_wrap');
+                $('#pastBookingsTable_paginate').appendTo('#pastBookingsTable_paginate_wrap');
+            });
+            // Initial move after first draw
+            $('#pastBookingsTable_info').appendTo('#pastBookingsTable_info_wrap');
+            $('#pastBookingsTable_paginate').appendTo('#pastBookingsTable_paginate_wrap');
+
+            // Open modal and load items
+            window.openMaintenanceModal = function (bookingId) {
+                currentBookingId = bookingId;
+                $('#modalBookingId').text(bookingId);
+                maintenanceItems = [];
+                $('#maintenanceItemsTable tbody').empty();
+                $('#totalMaintenanceCost').text('0.00');
+
+                $.get('/MaintenanceLogs/GetMaintenanceItems', { bookingId: bookingId }, function (data) {
+                    // If data is array of key-value pairs, convert each to object
+                    if (Array.isArray(data) && data.length > 0 && data[0].Key !== undefined) {
+                        maintenanceItems = [convertArrayOfKeyValuePairsToObject(data)];
+                    } else if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
+                        maintenanceItems = data.map(convertArrayOfKeyValuePairsToObject);
+                    } else {
+                        maintenanceItems = data || [];
+                    }
+                    renderMaintenanceItems();
+                    $('#maintenanceModal').modal('show');
+                });
+            };
+
+            // Function to update the total maintenance cost display
+            function updateTotalCost() {
+                var total = maintenanceItems.reduce(function (sum, item) {
+                    var cost = parseFloat(item.Cost);
+                    return sum + (isNaN(cost) ? 0 : cost);
+                }, 0);
+                $('#totalMaintenanceCost').text(total.toFixed(2));
+            }
+
+            // Function to render maintenance items table rows
+            function renderMaintenanceItems() {
+                var $tbody = $('#maintenanceItemsTable tbody');
+                $tbody.empty();
+                maintenanceItems.forEach(function (item, index) {
+                    var desc = item.ItemDescription || '';
+                    var cost = item.Cost !== undefined ? item.Cost : '';
+                    $tbody.append(`
+                <tr data-index="${index}">
+                    <td><input type="text" class="form-control item-desc" value="${desc}" /></td>
+                    <td><input type="number" class="form-control item-cost" value="${cost}" min="0" step="0.01" /></td>
+                    <td><button type="button" class="btn btn-primary remove-item-btn">Remove</button></td>
+                </tr>
+            `);
+                });
+                updateTotalCost();
+            }
+
+            // Add new item with validation
+            $('#addItemBtn').click(function () {
+                var desc = $('#newItemDescription').val().trim();
+                var costStr = $('#newItemCost').val();
+                var cost = parseFloat(costStr);
+
+                if (!desc) { toastr.error('Please enter item description.'); return; }
+                if (isNaN(cost) || cost < 0) { toastr.error('Please enter valid cost (0 or more).'); return; }
+
+                maintenanceItems.push({ ItemDescription: desc, Cost: cost });
+                $('#newItemDescription').val('');
+                $('#newItemCost').val('');
+                renderMaintenanceItems();
+            });
+
+            // Remove item
+            $('#maintenanceItemsTable').on('click', '.remove-item-btn', function () {
+                var index = $(this).closest('tr').data('index');
+                maintenanceItems.splice(index, 1);
+                renderMaintenanceItems();
+            });
+
+            // Live update on input
+            // On input change, update data model and total cost ONLY
+            $('#maintenanceItemsTable').on('input', '.item-desc, .item-cost', function () {
+                var $row = $(this).closest('tr');
+                var index = $row.data('index');
+                var desc = $row.find('.item-desc').val().trim();
+                var costStr = $row.find('.item-cost').val();
+                var cost = parseFloat(costStr);
+
+                maintenanceItems[index].ItemDescription = desc;
+                maintenanceItems[index].Cost = isNaN(cost) || cost < 0 ? 0 : cost;
+
+                updateTotalCost(); // Update only total cost display, no re-render of rows
+            });
+
+            // Save items with notification and reload
+            $('#saveMaintenanceBtn').click(function () {
+                if (!currentBookingId) return;
+
+                $.ajax({
+                    url: '/MaintenanceLogs/SaveMaintenanceItems',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ bookingId: currentBookingId, items: maintenanceItems }),
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success('Maintenance items saved successfully.');
+                            $('#maintenanceModal').modal('hide');
+                            bookingsTable.ajax.reload(null, false); // Reload bookings table to update total cost
+                        } else {
+                            toastr.error('Error: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Failed to save maintenance items.');
+                    }
+                });
+            });
+
+            $('#closeButtonModal').click(function () {
+                $('#maintenanceModal').modal('hide');
+
+            });
+            $('#closeButtonModalClose').click(function () {
+                $('#maintenanceModal').modal('hide');
+
+            });
+
+            // Optional: Reset modal on close
+            $('#maintenanceModal').on('hidden.bs.modal', function () {
+                console.log(123)
+                maintenanceItems = [];
+                currentBookingId = null;
+                $('#maintenanceItemsTable tbody').empty();
+                $('#totalMaintenanceCost').text('0.00');
+                $('#newItemDescription').val('');
+                $('#newItemCost').val('');
+            });
+        });
+
+
+        // markReturned function
+
+        //function markReturned(bookingId) {
+        //    if (!confirm("Mark this booking as returned and send feedback email to user?")) return;
+
+        //    $.ajax({
+        //        url: '/MaintenanceLogs/MarkReturned',
+        //        method: 'POST',
+        //        data: { bookingId: bookingId },
+        //        success: function (res) {
+        //            if (res.success) {
+        //                toastr.success(res.message);
+        //                bookingsTable.ajax.reload(null, false);
+        //            } else {
+        //                toastr.error(res.message);
+        //            }
+        //        },
+        //        error: function () {
+        //            toastr.error('Failed to mark as returned.');
+        //        }
+        //    });
+        //}
+
+        function markReturned(bookingId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Mark this booking as returned and send feedback email to user?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, mark as returned!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/MaintenanceLogs/MarkReturned',
+                        method: 'POST',
+                        data: { bookingId: bookingId },
+                        success: function (res) {
+                            if (res.success) {
+                                toastr.success(res.message);
+                                bookingsTable.ajax.reload(null, false);
+                            } else {
+                                toastr.error(res.message);
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Failed to mark as returned.');
+                        }
+                    });
+                }
+                // If cancelled, do nothing
+            });
+        }
+
+
+
+
+
+
+
+
+    </script>
+}

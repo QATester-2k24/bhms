@@ -1,0 +1,74 @@
+﻿
+@model BHMS_Portal.Models.FeedbackViewModel
+
+<div class="card shadow-sm rounded-4 p-4" style="background: #ffffff; max-width: 700px; margin: auto;">
+    @using (Html.BeginForm("Submit", "Feedback", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.BookingId)
+        @Html.HiddenFor(m => m.FeedbackKey)
+
+        <div class="mb-4">
+            @Html.LabelFor(m => m.HutConditionRating, new { @class = "form-label fw-semibold" })
+            @Html.DropDownListFor(m => m.HutConditionRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+            <div class="invalid-feedback">Please provide a rating.</div>
+        </div>
+
+        <div class="mb-4">
+            @Html.LabelFor(m => m.HygieneRating, new { @class = "form-label fw-semibold" })
+            @Html.DropDownListFor(m => m.HygieneRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+            <div class="invalid-feedback">Please provide a rating.</div>
+        </div>
+
+        <div class="mb-4">
+            @Html.LabelFor(m => m.StaffRating, new { @class = "form-label fw-semibold" })
+            @Html.DropDownListFor(m => m.StaffRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+            <div class="invalid-feedback">Please provide a rating.</div>
+        </div>
+
+        <div class="mb-4">
+            @Html.LabelFor(m => m.ItemsRating, new { @class = "form-label fw-semibold" })
+            @Html.DropDownListFor(m => m.ItemsRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+            <div class="invalid-feedback">Please provide a rating.</div>
+        </div>
+
+        <div class="mb-4">
+            @Html.LabelFor(m => m.Comments, new { @class = "form-label fw-semibold" })
+            @Html.TextAreaFor(m => m.Comments, 5, 50, new { @class = "form-control", maxlength = "500", placeholder = "Max 500 characters" })
+            @Html.ValidationMessageFor(m => m.Comments, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-brown btn-lg w-100 fw-bold text-white shadow-sm" style="background: #ba0c2f; border: none; border-radius: .375rem;">
+            Submit Feedback
+        </button>
+    }
+</div>
+
+@section scripts {
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}
+
+@section styles {
+    <style>
+        .btn-brown {
+            background-color: #ba0c2f !important;
+        }
+        .btn-brown:hover {
+            background-color: #A0522D !important;
+        }
+    </style>
+}

@@ -1,0 +1,96 @@
+﻿
+@model BHMS_Portal.Models.FeedbackViewModel
+
+@{
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="container my-5" style="max-width: 700px;">
+    <div class="card shadow rounded-4" style="background: #ffffff; border: 1px solid #ba0c2f;">
+        <div class="card-header bg-brown text-white text-center py-3 rounded-top-4">
+            <h2 class="mb-0">Jubilee Hut Feedback Form</h2>
+            <small style="color: #ba0c2f;">We value your feedback and appreciate your time.</small>
+        </div>
+        <div class="card-body p-4">
+            @using (Html.BeginForm("Submit", "Feedback", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.BookingId)
+                @Html.HiddenFor(m => m.FeedbackKey)
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.HutConditionRating, new { @class = "form-label fw-semibold" })
+                    @Html.DropDownListFor(m => m.HutConditionRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+                    <div class="invalid-feedback">Please provide a rating.</div>
+                </div>
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.HygieneRating, new { @class = "form-label fw-semibold" })
+                    @Html.DropDownListFor(m => m.HygieneRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+                    <div class="invalid-feedback">Please provide a rating.</div>
+                </div>
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.StaffRating, new { @class = "form-label fw-semibold" })
+                    @Html.DropDownListFor(m => m.StaffRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+                    <div class="invalid-feedback">Please provide a rating.</div>
+                </div>
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.ItemsRating, new { @class = "form-label fw-semibold" })
+                    @Html.DropDownListFor(m => m.ItemsRating, new SelectList(Enumerable.Range(1, 5)), "Select rating", new { @class = "form-select", required = "required" })
+                    <div class="invalid-feedback">Please provide a rating.</div>
+                </div>
+
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.Comments, new { @class = "form-label fw-semibold" })
+                    @Html.TextAreaFor(m => m.Comments, 5, 50, new { @class = "form-control", maxlength = "500", placeholder = "Max 500 characters" })
+                    @Html.ValidationMessageFor(m => m.Comments, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-brown btn-lg w-100 fw-bold text-white shadow-sm" style="border-radius: .375rem;">
+                    Submit Feedback
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}
+
+@section styles {
+    <style>
+        .btn-brown {
+            background-color: #ba0c2f !important;
+            color: white !important; 
+            border: 2px solid #ba0c2f !important; 
+        }
+
+            .btn-brown:hover {
+                background-color: white !important;
+                color: #ba0c2f !important; 
+                border: 2px solid #ba0c2f !important; 
+            }
+
+        .bg-brown {
+            background-color: #ba0c2f !important;
+        }
+    </style>
+}
+

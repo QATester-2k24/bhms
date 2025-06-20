@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_RegistrationLogin.cshtml";
+    ViewBag.Title = "Verify User";
+}
+
+<section class="login-outer-wrapper">
+    <div class="background-logo">
+        <img src="~/Content/Web/assets/img/jubilee-logo.svg"
+             class="d-inline-block align-top" alt="">
+    </div>
+    <div class="login">
+        <div class="loader login_loader loader_absolute">
+            <div class="loader_overlay"></div>
+            <img class="loader_img" src="~/Content/Web/assets/img/loader.svg">
+        </div>
+        <div class="alert alert-danger mt-4" style="font-size:1.2rem;">
+            <strong>User not found!</strong> The user you are trying to verify does not exist or the information is incorrect.<br>
+            Please check your input or contact support.
+        </div>
+
+        <a href="@Url.Action("VerifyUser", "Account")" class="text-decoration-none red">Back</a>
+    </div>
+</section>
+

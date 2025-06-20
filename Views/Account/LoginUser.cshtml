@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "~/Views/Shared/_RegistrationLogin.cshtml";
+    ViewBag.Title = "Login User";
+}
+
+<section class="login-outer-wrapper">
+    <div class="background-logo">
+        <img src="~/Content/Web/assets/img/jubilee-logo.svg"
+             class="d-inline-block align-top" alt="">
+    </div>
+    <div class="login">
+        <div class="loader login_loader loader_absolute">
+            <div class="loader_overlay"></div>
+            <img class="loader_img" src="~/Content/Web/assets/img/Ripple-2.3s-97px.svg">
+        </div>
+        <div class="login-head">
+            <h2>Welcome To  <b><span style="color:#ba0c2f">Jubilee Hut Management System</span></b></h2>
+            <p>Please login with Jubilee Life credentials</p>
+        </div>
+        <form id="login-form" method="POST">
+            <div class="alert-response alert alert-dismissible fade show mt-1 mb-1 login_alert" role="alert" data-rfClass="">
+                <span></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="login-credential-wrapper">
+                <div class="login-input-wrapper clearfix">
+                    <div class="icon-box">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div class="input-box">
+                        <input id="deciblelid" type="text" class="form-control digitsOnly" name="decibelId" required autocomplete="off" placeholder="Employee Id" maxlength="7">
+                    </div>
+                </div>
+            </div>
+            <div class="login-credential-wrapper">
+                <div class="login-input-wrapper clearfix">
+                    <div class="icon-box"> <i class="fa fa-lock"></i> </div>
+                    <div class="input-box">
+                        <input id="password" type="password" class="form-control " name="password" required autocomplete="off" placeholder="Password">
+                    </div>
+                </div>
+            </div>
+            <div class="btn-wrapper-sign">
+                <a onclick="login();" class="btn sign-in-btn">Login</a>
+            </div>
+
+            <p> Don't have an account? <a href="@Url.Action("VerifyUser", "Account")" class="text-decoration-underline">Register here</a><text>&nbsp;</text><text>&nbsp;</text><text>&nbsp;</text><text>&nbsp;</text><text>&nbsp;</text></p>
+            <p> Forgot Password? <a href="@Url.Action("ForgotPassword", "Account")" class="text-decoration-underline">Click here</a></p>
+        </form>
+    </div>
+</section>
+@section scripts{
+    <script>
+        $('#password').keypress(function (e) {
+            if (e.which == 13) {
+                login();
+                return false;
+            }
+        });
+
+        function limitText(field, maxChar) {
+            $(field).attr('maxlength', maxChar);
+        }
+
+        function login() {
+            var flg = LoginValidation();
+            if (flg != "") {
+                ToastMsg("5", flg, "top-right");
+            } else {
+                var data = $("#login-form").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/LoginUser',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: data,
+                    success: function (result) {
+                        loaderShow('login_loader');
+                        if (result.statusCode == 200) {
+                            window.localStorage.setItem("xObject", JSON.stringify(result.data));
+                            ToastMsg("1", "Login Successfully", "top-right");
+                            if (window.location.search != null && window.location.search != '') {
+                                var redirectUrl = window.location.search.split('=')[1];
+                                if (typeof (redirectUrl) != 'undefined') {
+                                    var decodedUri = decodeURIComponent(redirectUrl);
+                                    window.location.replace(decodedUri);
+                                } else {
+                                    window.location.replace('/BHMS/Index');
+                                }
+                            } else {
+                                window.location.replace('/BHMS/Index');
+                            }
+                        } else {
+                            ToastMsg("2", result.statusMessage, "top-right");
+                        }
+                        loaderHide('login_loader');
+
+                    },
+                    error: function (error) {
+                        loaderHide('login_loader');
+                        ToastMsg("2", error, "top-right");
+                    }
+                })
+            }
+        }
+    </script>
+}
+

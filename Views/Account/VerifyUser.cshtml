@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_RegistrationLogin.cshtml";
+    ViewBag.Title = "Verify User";
+}
+
+<section class="login-outer-wrapper">
+    <div class="background-logo">
+        <img src="~/Content/Web/assets/img/jubilee-logo.svg"
+             class="d-inline-block align-top" alt="">
+    </div>
+    <div class="login">
+        <div class="loader login_loader loader_absolute">
+            <div class="loader_overlay"></div>
+            <img class="loader_img" src="~/Content/Web/assets/img/loader.svg">
+        </div>
+        <div class="login-head">
+            <h2>Welcome To  <b><span style="color:#ba0c2f">Jubilee Hut Management System</span></b></h2>
+            <p>Please enter your Employee ID</p>
+        </div>
+        <form id="register-form" method="POST">
+            <div class="alert-response alert alert-dismissible fade show mt-1 mb-1 login_alert" role="alert" data-rfClass="">
+                <span></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="
+                -credential-wrapper">
+                <div class="login-input-wrapper clearfix">
+                    <div class="icon-box"> <i class="fas fa-id-card"></i> </div>
+                    <div class="input-box">
+                        <input id="DecibelId" type="text" class="form-control " name="DecibelId" required autocomplete="off" placeholder="9909010">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-wrapper-sign">
+                <a class="btn sign-in-btn" onclick="VerifyUser();">Register</a>
+            </div>
+            <p> Already have an account? <a href="@Url.Action("LoginUser", "Account")" class="text-decoration-underline">Login here</a></p>
+        </form>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+        $('#DecibelId').keypress(function (e) {
+            if (e.which == 13) {
+                VerifyUser();
+                return false;
+            }
+        });
+
+        function VerifyUser() {
+            var flg = VerifyUserValidation();
+            if (flg != "") {
+                ToastMsg("5", flg, "top-right");
+            } else {
+                var jsonbox = {};
+                jsonbox.DecibelId = $('#DecibelId').val()
+                $.ajax({
+                    type: "POST",
+                    url: '/Account/VerifyUser',
+                    data: '{model: ' + JSON.stringify(jsonbox) + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: false,
+                    success: function (result) {
+                        if (result.statusCode == 200) {
+                            console.log(result.statusMessage);
+                            if (result.statusMessage == "Email not found contact to HR department")
+                                ToastMsg("2", result.statusMessage, "top-right");
+                            else
+                                ToastMsg("1", "Please check your email, The activation Link has been sent to you on the registered email(" + result.statusMessage + ").", "top-right");
+                        } else {
+                            console.log(result.statusMessage);
+                            ToastMsg("2", result.statusMessage, "top-right");
+                            window.location.replace('/Account/VerifyEmail');
+                        }
+                    },
+                    error: function (error) {
+                    }
+                });
+            }
+        }
+    </script>
+}
+

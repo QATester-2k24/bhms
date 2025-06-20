@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jubilee Life Insurance</title>
+
+    <!-- Favicon Links -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="~/Content/Web/assets/img/favicons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/Web/assets/img/favicons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/Web/assets/img/favicons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/Web/assets/img/favicons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="~/Content/Web/assets/img/favicons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="~/Content/Web/assets/img/favicons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="~/Content/Web/assets/img/favicons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="~/Content/Web/assets/img/favicons/apple-touch-icon-152x152.png" />
+
+    <link rel="icon" type="image/png" href="~/Content/Web/assets/img/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="~/Content/Web/assets/img/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="~/Content/Web/assets/img/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="~/Content/Web/assets/img/favicons/favicon-128.png" sizes="128x128" />
+    <link rel="icon" type="image/png" href="~/Content/Web/assets/img/favicons/favicon-196x196.png" sizes="196x196" />
+
+    <!-- CSS Files - Main styling -->
+    <link rel="stylesheet" href="~/Content/Web/assets/css/all.min.css" />
+    <link rel="stylesheet" href="~/Content/Web/assets/css/main.css" />
+    <link rel="stylesheet" href="~/Content/Web/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/Web/assets/module/login.style.css">
+
+    <!-- Toast/Notification CSS -->
+    @*<link rel="stylesheet" type="text/css" href="~/Content/Web/assets/customjs/jquery.toast.css">*@
+    <link rel="stylesheet" href="~/Content/Web/assets/plugins/toastr/toastr.min.css" />
+
+    <!-- jQuery Core - Load before other scripts -->
+    <script type="text/javascript" src="~/Content/Web/assets/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/Web/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Toast/Notification JS  -->
+    <script type="text/javascript" src="~/Content/Web/assets/plugins/toastr/toastr.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="~/Content/Web/assets/customjs/custom.js"></script>
+
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p, :not(i) {
+            font-family: Verdana !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <!-- Scripts loaded at end of body -->
+    <script type="text/javascript" src="~/Content/Web/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/Web/assets/js/main.js"></script>
+    <script type="text/javascript" src="~/Content/Web/assets/module/login.script.js"></script>
+
+    <!-- Initialize toast functionality -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Global toast notification function
+            window.ToastMsg = function (type, message, position) {
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toast-" + (position || "top-right"),
+                    "timeOut": "3000"
+                }
+
+                switch (type) {
+                    case "1":
+                        toastr.success(message);
+                        break;
+                    case "2":
+                        toastr.error(message);
+                        break;
+                    case "3":
+                        toastr.info(message);
+                        break;
+                    case "4":
+                        toastr.warning(message);
+                        break;
+                    default:
+                        toastr.info(message);
+                }
+            }
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
